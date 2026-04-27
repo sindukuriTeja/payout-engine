@@ -40,7 +40,7 @@ export default function Sidebar({ activeSection, onNavigate }) {
               className={`nav-item ${activeSection === id ? "active" : ""}`}
               onClick={() => onNavigate(id)}
             >
-              <span className="nav-icon"><Icon size={18} /></span>
+              <span className="nav-icon"><Icon size={20} /></span>
               <span>{label}</span>
             </button>
           ))}
@@ -54,7 +54,7 @@ export default function Sidebar({ activeSection, onNavigate }) {
               className={`nav-item ${activeSection === id ? "active" : ""}`}
               onClick={() => onNavigate(id)}
             >
-              <span className="nav-icon"><Icon size={18} /></span>
+              <span className="nav-icon"><Icon size={20} /></span>
               <span>{label}</span>
             </button>
           ))}

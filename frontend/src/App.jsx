@@ -14,14 +14,14 @@ import PayoutHistory from "./components/PayoutHistory";
 import LedgerTable from "./components/LedgerTable";
 import ArchitectureView from "./components/ArchitectureView";
 import ApiReferenceView from "./components/ApiReferenceView";
-import { RefreshIcon, WalletIcon, HoldIcon } from "./components/Icons";
+import { WalletIcon, HoldIcon } from "./components/Icons";
 
 const POLL_INTERVAL = 3000;
 
 const SECTION_META = {
   dashboard: {
     title: "Dashboard",
-    subtitle: "Real-time merchant overview",
+    subtitle: "Real-time payout overview",
   },
   payouts: {
     title: "Create Payout",
@@ -80,6 +80,12 @@ export default function App() {
 
   const section = SECTION_META[activeSection];
 
+  // Calculate stats
+  const totalPayouts = payouts?.length || 0;
+  const processingCount = payouts?.filter(p => p.status === "PROCESSING").length || 0;
+  const completedCount = payouts?.filter(p => p.status === "COMPLETED").length || 0;
+  const totalVolume = payouts?.reduce((sum, p) => sum + (p.amount_paise || 0), 0) || 0;
+
   return (
     <div className="app-container">
       <Sidebar activeSection={activeSection} onNavigate={setActiveSection} />
@@ -95,7 +101,7 @@ export default function App() {
               <span>Live</span>
             </div>
             {lastUpdate && (
-              <span style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+              <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
                 Updated {new Date().toLocaleTimeString()}
               </span>
             )}
@@ -106,6 +112,35 @@ export default function App() {
           {/* ============ DASHBOARD ============ */}
           {activeSection === "dashboard" && (
             <>
+              {/* Hero Section */}
+              <div className="hero-section">
+                <div className="hero-content">
+                  <h2 className="hero-title">Financial infrastructure for payouts</h2>
+                  <p className="hero-subtitle">
+                    Real-time balance tracking, instant payouts, and complete audit trail. 
+                    Built for reliability with enterprise-grade infrastructure.
+                  </p>
+                  <div className="hero-stats">
+                    <div className="hero-stat">
+                      <span className="hero-stat-value">{totalPayouts}</span>
+                      <span className="hero-stat-label">Total Payouts</span>
+                    </div>
+                    <div className="hero-stat">
+                      <span className="hero-stat-value">{processingCount}</span>
+                      <span className="hero-stat-label">Processing</span>
+                    </div>
+                    <div className="hero-stat">
+                      <span className="hero-stat-value">{completedCount}</span>
+                      <span className="hero-stat-label">Completed</span>
+                    </div>
+                    <div className="hero-stat">
+                      <span className="hero-stat-value">₹{(totalVolume / 100).toLocaleString('en-IN')}</span>
+                      <span className="hero-stat-label">Total Volume</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <MerchantSelector
                 merchants={merchants}
                 selectedId={selectedId}

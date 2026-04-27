@@ -10,14 +10,13 @@ export default function StatsBar({ merchants, payouts, balance }) {
   const totalPayouts = payouts?.length || 0;
   const processingCount = payouts?.filter(p => p.status === "PROCESSING").length || 0;
   const completedCount = payouts?.filter(p => p.status === "COMPLETED").length || 0;
-  const failedCount = payouts?.filter(p => p.status === "FAILED").length || 0;
 
   const stats = [
     {
       label: "Total Merchants",
       value: merchants?.length || 0,
       icon: MerchantIcon,
-      color: "indigo",
+      color: "purple",
     },
     {
       label: "Total Payouts",
@@ -44,7 +43,7 @@ export default function StatsBar({ merchants, payouts, balance }) {
       {stats.map(({ label, value, icon: Icon, color }) => (
         <div key={label} className="stat-card">
           <div className={`stat-icon ${color}`}>
-            <Icon size={22} />
+            <Icon size={24} />
           </div>
           <div className="stat-content">
             <p className="stat-label">{label}</p>
