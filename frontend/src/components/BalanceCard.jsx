@@ -1,5 +1,3 @@
-import { WalletIcon } from "./Icons";
-
 function formatINR(paise) {
   const rupees = Math.floor(paise / 100);
   const paisePart = paise % 100;
@@ -10,7 +8,7 @@ export default function BalanceCard({ label, paise, color, icon: Icon }) {
   return (
     <div className={`balance-card ${color}`}>
       <p className="balance-label">
-        {Icon && <Icon size={16} />}
+        {Icon && <Icon size={18} />}
         {label}
       </p>
       <p className="balance-amount">{formatINR(paise)}</p>

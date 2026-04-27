@@ -58,8 +58,8 @@ export default function PayoutForm({ merchantId, onSuccess }) {
     <div className="form-card">
       <div className="form-header">
         <h3 className="form-title">
-          <SendIcon size={18} />
-          Request Payout
+          <SendIcon size={20} />
+          Create Payout
         </h3>
       </div>
       <form onSubmit={handleSubmit}>
@@ -98,7 +98,7 @@ export default function PayoutForm({ merchantId, onSuccess }) {
                 <>Processing...</>
               ) : (
                 <>
-                  <SendIcon size={16} />
+                  <SendIcon size={18} />
                   Submit Payout
                 </>
               )}
@@ -107,7 +107,7 @@ export default function PayoutForm({ merchantId, onSuccess }) {
 
           {message && (
             <div className={`form-message ${message.type}`}>
-              {message.type === "success" ? <CheckIcon size={16} /> : <AlertIcon size={16} />}
+              {message.type === "success" ? <CheckIcon size={18} /> : <AlertIcon size={18} />}
               {message.text}
             </div>
           )}

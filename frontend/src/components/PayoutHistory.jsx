@@ -22,7 +22,7 @@ function StatusBadge({ status }) {
   return (
     <span className={`badge ${statusLower}`}>
       {status === "PROCESSING" && (
-        <span className="realtime-dot" style={{ width: 6, height: 6 }} />
+        <span className="live-dot" style={{ width: 6, height: 6 }} />
       )}
       {status}
     </span>
@@ -34,7 +34,7 @@ export default function PayoutHistory({ payouts }) {
     <div className="table-card">
       <div className="table-header">
         <h3 className="table-title">
-          <HistoryIcon size={18} />
+          <HistoryIcon size={20} />
           Payout History
         </h3>
         <span className="table-count">{payouts.length} records</span>
@@ -43,7 +43,7 @@ export default function PayoutHistory({ payouts }) {
       {payouts.length === 0 ? (
         <div className="table-empty">
           <div className="table-empty-icon">
-            <EmptyIcon size={48} />
+            <EmptyIcon size={56} />
           </div>
           <p>No payouts yet — submit one to get started.</p>
         </div>
@@ -65,8 +65,8 @@ export default function PayoutHistory({ payouts }) {
                 <tr key={p.id}>
                   <td style={{ 
                     fontFamily: "monospace", 
-                    fontSize: "0.78rem", 
-                    color: "var(--indigo-500)" 
+                    fontSize: "0.82rem", 
+                    color: "var(--stripe-purple)" 
                   }}>
                     {p.id.slice(0, 8)}…
                   </td>
@@ -78,7 +78,7 @@ export default function PayoutHistory({ payouts }) {
                     <StatusBadge status={p.status} />
                   </td>
                   <td style={{ textAlign: "center" }}>{p.attempts}</td>
-                  <td style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}>
+                  <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
                     {timeAgo(p.created_at)}
                   </td>
                 </tr>

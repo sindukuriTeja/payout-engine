@@ -22,7 +22,7 @@ export default function LedgerTable({ entries }) {
     <div className="table-card">
       <div className="table-header">
         <h3 className="table-title">
-          <LedgerIcon size={18} />
+          <LedgerIcon size={20} />
           Ledger Entries
         </h3>
         <span className="table-count">{entries.length} entries</span>
@@ -31,7 +31,7 @@ export default function LedgerTable({ entries }) {
       {entries.length === 0 ? (
         <div className="table-empty">
           <div className="table-empty-icon">
-            <EmptyIcon size={48} />
+            <EmptyIcon size={56} />
           </div>
           <p>No ledger entries yet.</p>
         </div>
@@ -66,7 +66,7 @@ export default function LedgerTable({ entries }) {
                     {formatINR(e.amount_paise)}
                   </td>
                   <td style={{ color: "var(--text-secondary)" }}>{e.description}</td>
-                  <td style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}>
+                  <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
                     {timeAgo(e.created_at)}
                   </td>
                 </tr>
