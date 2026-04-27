@@ -11,10 +11,18 @@ import StatsSection from "./components/StatsSection";
 import FeaturesSection from "./components/FeaturesSection";
 import DashboardSection from "./components/DashboardSection";
 import Footer from "./components/Footer";
+import ProductsPage from "./components/ProductsPage";
+import SolutionsPage from "./components/SolutionsPage";
+import DevelopersPage from "./components/DevelopersPage";
+import ResourcesPage from "./components/ResourcesPage";
+import SignInPage from "./components/SignInPage";
+import SignUpPage from "./components/SignUpPage";
 
 const POLL_INTERVAL = 3000;
 
 export default function App() {
+  const [currentPage, setCurrentPage] = useState("home");
+  const [user, setUser] = useState(null);
   const [merchants, setMerchants] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [balance, setBalance] = useState(null);
@@ -46,28 +54,83 @@ export default function App() {
     return () => clearInterval(id);
   }, [refresh]);
 
+  const handleSignIn = (userData) => {
+    setUser(userData);
+    setCurrentPage("home");
+  };
+
+  const handleSignUp = (userData) => {
+    setUser(userData);
+    setCurrentPage("home");
+  };
+
+  const handleSignOut = () => {
+    setUser(null);
+    setCurrentPage("home");
+  };
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case "products":
+        return <ProductsPage />;
+      case "solutions":
+        return <SolutionsPage />;
+      case "developers":
+        return <DevelopersPage />;
+      case "resources":
+        return <ResourcesPage />;
+      case "signin":
+        return (
+          <SignInPage 
+            onSignIn={handleSignIn} 
+            onSwitchToSignUp={() => setCurrentPage("signup")}
+          />
+        );
+      case "signup":
+        return (
+          <SignUpPage 
+            onSignUp={handleSignUp} 
+            onSwitchToSignIn={() => setCurrentPage("signin")}
+          />
+        );
+      default:
+        return (
+          <main>
+            <Hero />
+            <StatsSection payouts={payouts} balance={balance} />
+            <FeaturesSection />
+            
+            <DashboardSection
+              merchants={merchants}
+              selectedId={selectedId}
+              onSelectMerchant={setSelectedId}
+              balance={balance}
+              payouts={payouts}
+              ledger={ledger}
+              onRefresh={refresh}
+              lastUpdate={lastUpdate}
+            />
+          </main>
+        );
+    }
+  };
+
+  const showNavbarAndFooter = !["signin", "signup"].includes(currentPage);
+
   return (
     <div className="app">
-      <Navbar />
-      
-      <main>
-        <Hero />
-        <StatsSection payouts={payouts} balance={balance} />
-        <FeaturesSection />
-        
-        <DashboardSection
-          merchants={merchants}
-          selectedId={selectedId}
-          onSelectMerchant={setSelectedId}
-          balance={balance}
-          payouts={payouts}
-          ledger={ledger}
-          onRefresh={refresh}
-          lastUpdate={lastUpdate}
+      {showNavbarAndFooter && (
+        <Navbar 
+          currentPage={currentPage} 
+          setCurrentPage={setCurrentPage}
+          user={user}
+          onSignOut={handleSignOut}
         />
-      </main>
+      )}
       
-      <Footer />
+      {renderPage()}
+      
+      {showNavbarAndFooter && <Footer />}
     </div>
   );
 }

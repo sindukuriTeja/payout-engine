@@ -1,52 +1,77 @@
-import { useState } from "react";
-
-export default function Navbar() {
-  const [activeLink, setActiveLink] = useState("home");
-
+export default function Navbar({ currentPage, setCurrentPage, user, onSignOut }) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a href="#" className="navbar-logo">
+        <button 
+          className="navbar-logo"
+          onClick={() => setCurrentPage("home")}
+        >
           <div className="navbar-logo-icon">P</div>
           <span className="navbar-logo-text">Playto Pay</span>
-        </a>
+        </button>
 
         <div className="navbar-links">
           <button 
-            className={`navbar-link ${activeLink === "home" ? "active" : ""}`}
-            onClick={() => setActiveLink("home")}
+            className={`navbar-link ${currentPage === "home" ? "active" : ""}`}
+            onClick={() => setCurrentPage("home")}
           >
             Home
           </button>
           <button 
-            className={`navbar-link ${activeLink === "products" ? "active" : ""}`}
-            onClick={() => setActiveLink("products")}
+            className={`navbar-link ${currentPage === "products" ? "active" : ""}`}
+            onClick={() => setCurrentPage("products")}
           >
             Products
           </button>
           <button 
-            className={`navbar-link ${activeLink === "solutions" ? "active" : ""}`}
-            onClick={() => setActiveLink("solutions")}
+            className={`navbar-link ${currentPage === "solutions" ? "active" : ""}`}
+            onClick={() => setCurrentPage("solutions")}
           >
             Solutions
           </button>
           <button 
-            className={`navbar-link ${activeLink === "developers" ? "active" : ""}`}
-            onClick={() => setActiveLink("developers")}
+            className={`navbar-link ${currentPage === "developers" ? "active" : ""}`}
+            onClick={() => setCurrentPage("developers")}
           >
             Developers
           </button>
           <button 
-            className={`navbar-link ${activeLink === "resources" ? "active" : ""}`}
-            onClick={() => setActiveLink("resources")}
+            className={`navbar-link ${currentPage === "resources" ? "active" : ""}`}
+            onClick={() => setCurrentPage("resources")}
           >
             Resources
           </button>
         </div>
 
         <div className="navbar-actions">
-          <button className="navbar-btn navbar-btn-secondary">Sign in</button>
-          <button className="navbar-btn navbar-btn-primary">Start now →</button>
+          {user ? (
+            <>
+              <div className="navbar-user">
+                <div className="navbar-user-avatar">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <span className="navbar-user-name">{user.name}</span>
+              </div>
+              <button className="navbar-btn navbar-btn-secondary" onClick={onSignOut}>
+                Sign out
+              </button>
+            </>
+          ) : (
+            <>
+              <button 
+                className="navbar-btn navbar-btn-secondary"
+                onClick={() => setCurrentPage("signin")}
+              >
+                Sign in
+              </button>
+              <button 
+                className="navbar-btn navbar-btn-primary"
+                onClick={() => setCurrentPage("signup")}
+              >
+                Start now →
+              </button>
+            </>
+          )}
         </div>
       </div>
     </nav>
