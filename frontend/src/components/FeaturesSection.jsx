@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { LockIcon, DatabaseIcon, KeyIcon, RepeatIcon, FileTextIcon, SpeedIcon } from "./Icons";
 
 const features = [
@@ -33,11 +34,58 @@ const features = [
   },
 ];
 
+function FeatureCard({ title, description, icon: Icon, index }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`feature-card ${visible ? "feature-card-visible" : ""}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <div className="feature-icon">
+        <Icon size={24} />
+      </div>
+      <h3 className="feature-title">{title}</h3>
+      <p className="feature-description">{description}</p>
+    </div>
+  );
+}
+
 export default function FeaturesSection() {
+  const headerRef = useRef(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
+
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setHeaderVisible(true); },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="features-section">
       <div className="features-container">
-        <div className="features-header">
+        <div
+          ref={headerRef}
+          className={`features-header ${headerVisible ? "features-header-visible" : ""}`}
+        >
           <h2 className="features-title">Built for reliability</h2>
           <p className="features-subtitle">
             Enterprise-grade infrastructure with every detail designed for financial integrity
@@ -45,14 +93,14 @@ export default function FeaturesSection() {
         </div>
 
         <div className="features-grid">
-          {features.map(({ title, description, icon: Icon }) => (
-            <div key={title} className="feature-card">
-              <div className="feature-icon">
-                <Icon size={24} />
-              </div>
-              <h3 className="feature-title">{title}</h3>
-              <p className="feature-description">{description}</p>
-            </div>
+          {features.map(({ title, description, icon }, index) => (
+            <FeatureCard
+              key={title}
+              title={title}
+              description={description}
+              icon={icon}
+              index={index}
+            />
           ))}
         </div>
       </div>
