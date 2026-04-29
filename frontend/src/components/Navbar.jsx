@@ -56,11 +56,11 @@ export default function Navbar({ currentPage, setCurrentPage, user, onSignOut })
               <button 
                 className="navbar-user"
                 onClick={() => setCurrentPage("profile")}
+                title={user.name}
               >
                 <div className="navbar-user-avatar">
                   {user.name.charAt(0).toUpperCase()}
                 </div>
-                <span className="navbar-user-name">{user.name}</span>
               </button>
 
               <button className="navbar-btn navbar-btn-secondary" onClick={onSignOut}>
