@@ -22,8 +22,9 @@ services:
 
   backend:
     restart: always
-    build: ./backend
-    command: bash entrypoint.sh
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     volumes:
       - ./backend:/app
     ports:
@@ -44,7 +45,9 @@ services:
 
   celery-worker:
     restart: always
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     command: celery -A payouts_engine worker -l info --concurrency=4
     volumes:
       - ./backend:/app
@@ -63,7 +66,9 @@ services:
 
   celery-beat:
     restart: always
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     command: celery -A payouts_engine beat -l info
     volumes:
       - ./backend:/app
@@ -81,7 +86,9 @@ services:
         condition: service_started
 
   frontend:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
       - "5173:5173"
     volumes:
