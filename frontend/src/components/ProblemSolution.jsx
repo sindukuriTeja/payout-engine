@@ -58,14 +58,28 @@ const ProblemSolution = () => {
                   <div className="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                     {item.icon}
                   </div>
-                  <div>
-                    <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">{item.label}</span>
-                    <h3 className="text-lg font-bold text-slate-200 mt-1 mb-3">
-                      <span className="problem-text">{item.problem}</span>
-                    </h3>
-                    <p className="text-indigo-100 font-medium leading-relaxed bg-indigo-500/10 p-4 rounded-xl border border-indigo-500/20">
-                      <span className="font-bold text-indigo-400 mr-2">Solution:</span> {item.fix}
-                    </p>
+                  <div className="flex-1">
+                    <div className="mb-4">
+                      <span className="text-xs font-bold text-red-400 uppercase tracking-widest flex items-center">
+                        <span className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></span>
+                        The Problem
+                      </span>
+                      <h3 className="text-lg font-semibold text-slate-300 mt-1 leading-snug">
+                        {item.problem}
+                      </h3>
+                    </div>
+                    
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 p-5 rounded-2xl relative overflow-hidden group-hover:bg-emerald-500/15 transition-colors">
+                      <div className="absolute top-0 right-0 p-2">
+                        <span className="solved-badge">Solved</span>
+                      </div>
+                      <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest flex items-center mb-2">
+                        Our Solution
+                      </span>
+                      <p className="text-emerald-50 font-medium leading-relaxed">
+                        {item.fix}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
