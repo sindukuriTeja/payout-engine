@@ -1,4 +1,7 @@
-const API_BASE = import.meta.env.VITE_API_URL || "/api/v1";
+const VITE_URL = import.meta.env.VITE_API_URL;
+const API_BASE = VITE_URL
+  ? `https://${VITE_URL}/api/v1`
+  : "/api/v1";
 
 export async function fetchMerchants() {
   const res = await fetch(`${API_BASE}/merchants/`);
@@ -25,7 +28,6 @@ export async function fetchPayouts(merchantId) {
 }
 
 export async function fetchProfile() {
-  // Mock profile data
   return {
     name: "Teja Sindukuri",
     email: "teja@example.com",
@@ -53,4 +55,3 @@ export async function createPayout(merchantId, amountPaise, bankAccountId) {
   const data = await res.json();
   return { status: res.status, data };
 }
-
