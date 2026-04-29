@@ -2,10 +2,11 @@ FROM node:20-slim
 
 WORKDIR /app
 
-COPY package.json .
+# Build context should be the repository root
+COPY frontend/package*.json ./
 RUN npm install
 
-COPY . .
+COPY frontend/ ./
 
 EXPOSE 5173
 
