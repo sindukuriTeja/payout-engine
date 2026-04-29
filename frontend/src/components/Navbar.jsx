@@ -47,13 +47,6 @@ export default function Navbar({ currentPage, setCurrentPage, user, onSignOut })
           >
             Research
           </button>
-          <button 
-            className={`navbar-link ${currentPage === "profile" ? "active" : ""}`}
-            onClick={() => setCurrentPage("profile")}
-          >
-            Profile
-          </button>
-
         </div>
 
         <div className="navbar-actions">
