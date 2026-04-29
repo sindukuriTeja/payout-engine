@@ -60,8 +60,8 @@ const ProblemSolution = () => {
                   </div>
                   <div>
                     <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">{item.label}</span>
-                    <h3 className="text-lg font-bold text-slate-200 mt-1 mb-3 line-through decoration-red-500/50">
-                      {item.problem}
+                    <h3 className="text-lg font-bold text-slate-200 mt-1 mb-3">
+                      <span className="problem-text">{item.problem}</span>
                     </h3>
                     <p className="text-indigo-100 font-medium leading-relaxed bg-indigo-500/10 p-4 rounded-xl border border-indigo-500/20">
                       <span className="font-bold text-indigo-400 mr-2">Solution:</span> {item.fix}

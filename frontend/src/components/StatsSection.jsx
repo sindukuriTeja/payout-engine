@@ -60,8 +60,12 @@ export default function StatsSection({ payouts, balance }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map(({ label, value, sublabel, icon: Icon, gradient, shadow }) => (
-            <div key={label} className={`glass-card hover-lift p-8 rounded-3xl border border-gray-100 transition-all`}>
+          {stats.map(({ label, value, sublabel, icon: Icon, gradient, shadow }, idx) => (
+            <div 
+              key={label} 
+              className={`glass-card hover-lift p-8 rounded-3xl border border-gray-100 transition-all animate-fade-in-scale`}
+              style={{ animationDelay: `${idx * 0.1}s` }}
+            >
               <div className={`w-14 h-14 bg-gradient-to-br ${gradient} rounded-2xl flex items-center justify-center text-white mb-6 shadow-lg shadow-indigo-200/50`}>
                 <Icon size={28} />
               </div>
