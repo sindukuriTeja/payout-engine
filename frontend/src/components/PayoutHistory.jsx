@@ -30,6 +30,40 @@ function StatusBadge({ status }) {
 }
 
 export default function PayoutHistory({ payouts, isLoggedIn, onNavigateToLogin }) {
+  const downloadSingle = (p) => {
+    if (!isLoggedIn) {
+      onNavigateToLogin();
+      return;
+    }
+
+    const content = `
+PAYOUT RECEIPT
+---------------------------
+Transaction ID: ${p.id}
+Date: ${p.created_at}
+Status: ${p.status}
+
+Amount: ${formatINR(p.amount_paise)}
+Tax (5%): ${formatINR(p.tax_paise || (p.amount_paise * 0.05))}
+Total Deducted: ${formatINR(p.amount_paise + (p.tax_paise || (p.amount_paise * 0.05)))}
+
+Beneficiary Bank: ${p.bank_account_id}
+Attempts: ${p.attempts}
+---------------------------
+On-chain Proof: Verified via PayoutRegistry.sol
+    `.trim();
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `receipt_${p.id.slice(0, 8)}.txt`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const downloadCSV = () => {
     if (!isLoggedIn) {
       onNavigateToLogin();
@@ -93,9 +127,10 @@ export default function PayoutHistory({ payouts, isLoggedIn, onNavigateToLogin }
                 <th>Amount</th>
                 <th>Tax</th>
                 <th>Bank Account</th>
-                <th>Status</th>
+                 <th>Status</th>
                 <th>Attempts</th>
                 <th>Created</th>
+                <th style={{ textAlign: "right" }}>Action</th>
               </tr>
 
             </thead>
@@ -123,6 +158,15 @@ export default function PayoutHistory({ payouts, isLoggedIn, onNavigateToLogin }
                   <td style={{ textAlign: "center" }}>{p.attempts}</td>
                   <td style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
                     {timeAgo(p.created_at)}
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    <button 
+                      onClick={() => downloadSingle(p)}
+                      className="p-2 hover:bg-indigo-50 text-indigo-400 hover:text-indigo-600 rounded-lg transition-colors"
+                      title="Download Receipt"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </button>
                   </td>
                 </tr>
               ))}
