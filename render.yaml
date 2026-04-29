@@ -16,8 +16,7 @@ services:
     name: payout-engine-backend
     runtime: docker
     plan: free
-    rootDir: backend
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: backend/Dockerfile
     dockerCommand: bash entrypoint.sh
     envVars:
       - key: DATABASE_URL
@@ -47,8 +46,7 @@ services:
     name: payout-engine-celery-worker
     runtime: docker
     plan: free
-    rootDir: backend
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: backend/Dockerfile
     dockerCommand: celery -A payouts_engine worker -l info --concurrency=2
     envVars:
       - key: DATABASE_URL

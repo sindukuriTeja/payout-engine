@@ -5,12 +5,18 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Use a relative copy to handle different build contexts
-COPY requirements.txt ./
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Note: Build context should be the repository root for monorepos
+COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . ./
-
-RUN python manage.py collectstatic --noinput 2>/dev/null || true
+COPY backend/ ./
 
 EXPOSE 8000
+
+CMD ["bash", "entrypoint.sh"]
