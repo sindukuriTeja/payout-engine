@@ -108,7 +108,6 @@ export default function App() {
         return (
           <main>
             <Hero onNavigate={setCurrentPage} />
-            <ResearchGapsSection onExplore={() => setCurrentPage("research")} />
             <ProblemSolution />
             <ComparisonSection />
             <StatsSection payouts={payouts} balance={balance} />

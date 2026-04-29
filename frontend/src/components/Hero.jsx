@@ -122,12 +122,6 @@ export default function Hero({ onNavigate }) {
             >
               Start now →
             </button>
-            <button 
-              className="hero-btn hero-btn-secondary hover-lift"
-              onClick={() => onNavigate("research")}
-            >
-              View Research Gaps
-            </button>
           </div>
         </div>
 
