@@ -2,516 +2,271 @@ import { useState } from "react";
 
 export default function SolutionsPage() {
   const [activeSolution, setActiveSolution] = useState("ecommerce");
-  const [activeView, setActiveView] = useState("overview");
+  const [activeTab, setActiveTab] = useState("overview");
 
   const solutions = [
     {
       id: "ecommerce",
-      title: "E-commerce & Retail",
+      title: "E-commerce & Marketplaces",
       icon: "🛒",
-      tagline: "Streamline your marketplace payments",
-      description: "Automate vendor payouts, refund processing, and marketplace settlements. Whether you're a single-brand retailer or a multi-vendor marketplace, our infrastructure handles the complexity of splitting, scheduling, and reconciling payments at any scale.",
-      challenges: [
-        "Manual payout processing taking 5-7 business days",
-        "Complex vendor payment schedules across time zones",
-        "High refund processing costs eating into margins",
-        "Multi-currency payment complexity and FX exposure",
-        "Reconciliation errors causing vendor disputes",
-        "Scaling payment ops as vendor count grows"
-      ],
+      tagline: "Automate multi-vendor payouts with on-chain trust",
+      description: "Scale your marketplace without the reconciliation headache. Our solution automates vendor payouts, handles instant refunds, and mirrors every settlement on the blockchain to eliminate vendor disputes before they happen.",
       benefits: [
-        "Automate vendor payouts — process in minutes, not days",
-        "Reduce payment processing costs by up to 60%",
-        "Instant refunds improve customer NPS by 25+ points",
-        "Support 135+ currencies with locked-in FX rates",
-        "Zero reconciliation errors with automated matching",
-        "Handle 100K+ vendors without adding headcount"
+        { title: "Vendor Trust", desc: "Show your vendors immutable proof of payment recorded on the blockchain registry." },
+        { title: "Split Settlements", desc: "Automatically split order revenue between platform fees, taxes, and vendor earnings." },
+        { title: "Instant Refunds", desc: "Improve customer NPS with instant refund processing and automated vendor clawbacks." }
+      ],
+      stats: [
+        { value: "85%", label: "Ops Time Saved" },
+        { value: "0%", label: "Ledger Discrepancy" },
+        { value: "40%", label: "Vendor NPS Boost" }
+      ],
+      challenges: [
+        "Manual payout processing taking 5+ days",
+        "Vendor disputes over 'missing' or delayed funds",
+        "Complex tax reconciliation across multiple states"
       ],
       caseStudy: {
-        company: "ShopFlow Marketplace",
-        industry: "Multi-vendor e-commerce",
-        quote: "Playto Pay reduced our payout processing time from 5 days to under 30 seconds. Our vendor satisfaction scores increased by 40%.",
-        author: "Sarah Chen, VP of Operations",
-        metrics: [
-          { value: "85%", label: "Time saved on payouts" },
-          { value: "99.97%", label: "Payout accuracy rate" },
-          { value: "40%", label: "Vendor satisfaction increase" },
-          { value: "$2.1M", label: "Annual cost savings" }
-        ]
-      },
-      integrations: ["Shopify", "WooCommerce", "Magento", "BigCommerce", "Custom API"],
-      keyFeatures: [
-        { title: "Split Payments", desc: "Automatically split order payments between your platform, vendors, and affiliates at checkout" },
-        { title: "Vendor Dashboards", desc: "White-label payout dashboards for vendors to track earnings, download statements, and manage tax forms" },
-        { title: "Refund Automation", desc: "Process refunds instantly with automatic balance adjustments and vendor clawback handling" }
-      ]
+        company: "ShopFlow Global",
+        metric: "Processed $2.1M in first month",
+        quote: "Switching to the Blockchain Payout Engine eliminated our weekly reconciliation meetings. The vendors love the transparency."
+      }
     },
     {
       id: "saas",
-      title: "SaaS & Subscriptions",
+      title: "SaaS & Affiliate Platforms",
       icon: "☁️",
-      tagline: "Revenue sharing made simple",
-      description: "Handle subscription payouts, affiliate commissions, partner revenue sharing, and reseller payments. Our flexible rules engine lets you model any revenue sharing structure and automate disbursements on any schedule.",
-      challenges: [
-        "Complex revenue sharing calculations with tiers and overrides",
-        "Delayed partner payments creating trust issues",
-        "Manual commission tracking across hundreds of affiliates",
-        "Inconsistent payout schedules hurting partner retention",
-        "Difficulty scaling partnership programs internationally",
-        "Lack of transparency into earnings for partners"
-      ],
+      tagline: "Recursive revenue sharing made simple",
+      description: "Manage complex affiliate tiers, partner revenue shares, and reseller commissions. Our atomic ledger ensures that every commission is calculated to the paise and disbursed exactly when it's earned.",
       benefits: [
-        "Model any revenue split — percentage, tiered, usage-based, or hybrid",
-        "Real-time commission calculations visible to partners instantly",
-        "Flexible payout schedules — per transaction, daily, weekly, monthly, or threshold-based",
-        "Complete audit trail for every calculation and disbursement",
-        "Scale to 10K+ partners across 190 countries without added complexity",
-        "Self-service partner portal with real-time earnings visibility"
+        { title: "Atomic Splits", desc: "Calculate and lock commissions the moment a subscription payment is successful." },
+        { title: "Global Reach", desc: "Pay out to partners in 45+ countries using local rails with real-time conversion." },
+        { title: "Self-Serve Dashboards", desc: "Provide partners with a white-label dashboard to track their on-chain earnings." }
+      ],
+      stats: [
+        { value: "135+", label: "Currencies supported" },
+        { value: "5min", label: "Partner Onboarding" },
+        { value: "100%", label: "Audit Compliance" }
+      ],
+      challenges: [
+        "Calculating tiered commissions manually in spreadsheets",
+        "High FX fees eating into partner margins",
+        "Lack of transparency for international affiliates"
       ],
       caseStudy: {
-        company: "CloudStack Analytics",
-        industry: "B2B SaaS Platform",
-        quote: "We went from spending 40 hours per month on partner payouts to fully automated disbursements. Our partner program grew 3x in the first year.",
-        author: "Marcus Rivera, Head of Partnerships",
-        metrics: [
-          { value: "100%", label: "Payout automation" },
-          { value: "0 errors", label: "In commission calculations" },
-          { value: "3x", label: "Partner program growth" },
-          { value: "40hrs/mo", label: "Time reclaimed" }
-        ]
-      },
-      integrations: ["Stripe Billing", "Chargebee", "Recurly", "Zuora", "Custom API"],
-      keyFeatures: [
-        { title: "Revenue Split Engine", desc: "Define complex split rules with tiered percentages, minimums, maximums, and override logic" },
-        { title: "Partner Portal", desc: "Branded portal where partners view real-time earnings, download invoices, and manage payout preferences" },
-        { title: "Affiliate Tracking", desc: "Track referrals, calculate commissions across multiple programs, and handle multi-touch attribution" }
-      ]
-    },
-    {
-      id: "marketplace",
-      title: "Marketplaces & Platforms",
-      icon: "🏪",
-      tagline: "Scale your two-sided marketplace",
-      description: "Enable seamless split payments, instant seller payouts, and automated onboarding for your marketplace. Handle the full lifecycle from seller verification to settlement with a single integration.",
-      challenges: [
-        "Complex payment splitting across multiple sellers per order",
-        "Delayed seller payouts hurting seller acquisition and retention",
-        "High payment failure rates on international transfers",
-        "Manual seller onboarding creating bottlenecks",
-        "Regulatory complexity across different jurisdictions",
-        "Dispute handling and seller chargeback management"
-      ],
-      benefits: [
-        "Instant payment splitting at checkout — any number of sellers per order",
-        "Same-day or instant seller payouts in 45+ countries",
-        "Smart routing reduces international payment failures by 80%",
-        "Automated seller onboarding with KYC in under 5 minutes",
-        "Built-in compliance for 50+ countries with local regulations",
-        "Automated dispute resolution with seller-buyer mediation workflows"
-      ],
-      caseStudy: {
-        company: "ArtisanHub",
-        industry: "Handmade goods marketplace",
-        quote: "Instant payouts were the #1 feature request from our sellers. Since launching with Playto Pay, seller sign-ups increased 65% and churn dropped to nearly zero.",
-        author: "Priya Patel, CEO & Co-founder",
-        metrics: [
-          { value: "Instant", label: "Seller payouts" },
-          { value: "65%", label: "More seller sign-ups" },
-          { value: "~0%", label: "Seller churn rate" },
-          { value: "3x", label: "GMV growth in 12 months" }
-        ]
-      },
-      integrations: ["Custom API", "Sharetribe", "Arcadier", "Webflow", "No-code tools"],
-      keyFeatures: [
-        { title: "Instant Seller Payouts", desc: "Pay sellers immediately after order confirmation with configurable hold periods for returns" },
-        { title: "Seller Onboarding", desc: "White-label onboarding flow with identity verification, bank account linking, and tax form collection" },
-        { title: "Dispute Management", desc: "Automated workflows for buyer disputes with configurable resolution rules and seller notifications" }
-      ]
+        company: "Streamline SaaS",
+        metric: "Scaled to 5,000+ affiliates",
+        quote: "The auto-tax compliance alone saved our accounting team 20 hours a week. It's a game changer for SaaS platforms."
+      }
     },
     {
       id: "gig",
-      title: "Gig & On-demand",
-      icon: "🚗",
-      tagline: "Pay workers in real-time",
-      description: "Pay freelancers, drivers, delivery workers, and gig workers instantly across multiple payment methods. Flexible cash-out options, earned wage access, and real-time earnings visibility keep your workforce engaged and retained.",
-      challenges: [
-        "Workers waiting days or weeks for payment hurting retention",
-        "High payment processing fees eating into thin margins",
-        "Limited payment method options for diverse workforce",
-        "Cross-border payment complexity for international contractors",
-        "Tax reporting burden for thousands of independent contractors",
-        "Compliance with varying labor and payment regulations"
-      ],
+      title: "Gig Economy & Freelance",
+      icon: "🚀",
+      tagline: "High-velocity payouts for the global workforce",
+      description: "Built for the speed of the modern workforce. Deliver earnings to freelancers and contractors instantly, ensuring high retention and trust through transparent, on-chain proof of work and payment.",
       benefits: [
-        "Instant payouts to workers within seconds of job completion",
-        "Lower fees with smart routing — save 40-60% on payment costs",
-        "Workers choose: bank transfer, debit card, digital wallet, or cash pickup",
-        "Pay workers in 190+ countries with local payment methods",
-        "Automated 1099 generation and filing for US contractors",
-        "Built-in compliance with gig economy regulations by jurisdiction"
+        { title: "Real-time Payouts", desc: "Move money as soon as the job is marked complete—no more net-30 wait times." },
+        { title: "Statutory Compliance", desc: "Automatically handle professional tax and GST deductions at the source." },
+        { title: "Immutable Records", desc: "Protect your platform against fraudulent 'non-payment' claims with on-chain proofs." }
+      ],
+      stats: [
+        { value: "< 2s", label: "Transaction Speed" },
+        { value: "10k+", label: "Daily Disbursements" },
+        { value: "99.9%", label: "Uptime SLA" }
+      ],
+      challenges: [
+        "High churn due to delayed payments",
+        "Difficulty tracking hundreds of individual tax liabilities",
+        "Disputes over project-based milestone payments"
       ],
       caseStudy: {
-        company: "SwiftDeliver",
-        industry: "On-demand delivery platform",
-        quote: "Our drivers love instant cash-out. We saw driver retention improve by 55% and our applicant pipeline doubled within three months of launching instant payouts.",
-        author: "James Okonkwo, COO",
-        metrics: [
-          { value: "Instant", label: "Cash out available" },
-          { value: "55%", label: "Better driver retention" },
-          { value: "2x", label: "Driver applications" },
-          { value: "4.8★", label: "Worker satisfaction" }
-        ]
-      },
-      integrations: ["Custom API", "Uber-style platforms", "Workforce management tools", "Time tracking APIs"],
-      keyFeatures: [
-        { title: "Earned Wage Access", desc: "Let workers access a percentage of earned-but-unpaid wages before the regular pay cycle" },
-        { title: "Flexible Cash-out", desc: "Workers choose when and how to withdraw — instant, scheduled, or threshold-based triggers" },
-        { title: "Earnings Dashboard", desc: "Real-time earnings tracker for workers with trip-level breakdowns, tips, and bonuses" }
-      ]
-    },
-    {
-      id: "fintech",
-      title: "Fintech & Banking",
-      icon: "🏦",
-      tagline: "Build compliant financial products",
-      description: "Embed payout capabilities into your fintech product with our robust, compliant infrastructure. From neobanks to lending platforms — power account-to-account transfers, loan disbursements, and treasury operations with enterprise-grade APIs.",
-      challenges: [
-        "Complex regulatory requirements across jurisdictions",
-        "Building payout infrastructure from scratch takes 12-18 months",
-        "Security, fraud, and compliance concerns slowing product launches",
-        "Scalability limitations of legacy banking rails",
-        "Vendor lock-in with inflexible payment processors",
-        "Maintaining PCI DSS, SOC 2, and regional certifications"
-      ],
-      benefits: [
-        "SOC 2 Type II, PCI DSS Level 1, and ISO 27001 compliant",
-        "Launch in weeks instead of months with pre-built infrastructure",
-        "Advanced fraud detection with ML-powered risk scoring",
-        "Scale to millions of transactions with zero infrastructure management",
-        "Multi-rail support: ACH, wire, RTP, SEPA, Faster Payments, and more",
-        "White-label everything — your brand, your experience"
-      ],
-      caseStudy: {
-        company: "NexaPay",
-        industry: "Digital banking platform",
-        quote: "We launched our business banking product in 8 weeks instead of the 12 months we estimated. Playto Pay's APIs handled the complexity we didn't want to build.",
-        author: "Aisha Mohammed, CTO",
-        metrics: [
-          { value: "8 weeks", label: "Time to launch" },
-          { value: "99.99%", label: "Uptime SLA" },
-          { value: "SOC 2", label: "Compliant" },
-          { value: "$4M+", label: "Dev costs saved" }
-        ]
-      },
-      integrations: ["Core banking systems", "Plaid", "Alloy", "Unit", "Custom API"],
-      keyFeatures: [
-        { title: "Multi-rail Payments", desc: "ACH, wire, RTP, FedNow, SEPA, Faster Payments — choose the right rail for each payment" },
-        { title: "Embedded Finance", desc: "White-label payout APIs that integrate seamlessly into your product under your brand" },
-        { title: "Compliance Engine", desc: "Built-in BSA/AML, KYC, sanctions screening, and suspicious activity monitoring" }
-      ]
-    },
-    {
-      id: "creator",
-      title: "Creator Economy",
-      icon: "🎨",
-      tagline: "Monetize creators worldwide",
-      description: "Pay creators, influencers, podcasters, and content producers seamlessly across the globe. Handle subscription revenue splits, ad revenue sharing, tip disbursements, and merchandise payouts with automated tax compliance.",
-      challenges: [
-        "Manual creator payment processing doesn't scale past 100 creators",
-        "Inconsistent payout schedules hurting creator trust and retention",
-        "International payment barriers blocking global creator bases",
-        "Tax documentation complexity with 1099s and W-8BEN forms",
-        "Multiple revenue streams (subs, tips, ads, merch) hard to reconcile",
-        "Creators demanding faster, more flexible payout options"
-      ],
-      benefits: [
-        "Automated creator payouts supporting 50K+ creators per platform",
-        "Pay creators in 190+ countries with local payment methods",
-        "Integrated 1099 and W-8BEN collection and filing",
-        "Unified earnings from subscriptions, tips, ads, and merch in one view",
-        "Instant and scheduled payout options per creator preference",
-        "Creator-facing earnings dashboard with real-time analytics"
-      ],
-      caseStudy: {
-        company: "StreamVerse",
-        industry: "Live streaming platform",
-        quote: "We migrated 12,000 creators to Playto Pay in a weekend. Creators now get paid 5x faster and our support tickets about payments dropped by 90%.",
-        author: "David Kim, VP of Product",
-        metrics: [
-          { value: "12K+", label: "Creators migrated" },
-          { value: "5x", label: "Faster payments" },
-          { value: "90%", label: "Fewer payment tickets" },
-          { value: "Weekly", label: "Auto payouts" }
-        ]
-      },
-      integrations: ["Custom API", "YouTube API", "Twitch", "Patreon-style platforms", "Shopify"],
-      keyFeatures: [
-        { title: "Revenue Aggregation", desc: "Combine earnings from subscriptions, tips, ad revenue, sponsorships, and merch into unified payouts" },
-        { title: "Creator Portal", desc: "Branded portal where creators track earnings, set payout preferences, and download tax forms" },
-        { title: "Tiered Monetization", desc: "Configure different revenue splits based on creator tier, content type, or custom business rules" }
-      ]
-    },
-    {
-      id: "insurance",
-      title: "Insurance & Claims",
-      icon: "🏥",
-      tagline: "Accelerate claims disbursement",
-      description: "Modernize claims payments with instant disbursements, automated approval workflows, and multi-channel delivery. Reduce claims cycle time from weeks to minutes while maintaining full compliance and audit trails.",
-      challenges: [
-        "Claims disbursement taking 14-30 days frustrating policyholders",
-        "Manual approval workflows creating bottlenecks and errors",
-        "Check-based payments costly to process and slow to arrive",
-        "Regulatory compliance requirements varying by state and line of business",
-        "Fraud risk in claims payments requiring manual review",
-        "Poor visibility into payment status for adjusters and policyholders"
-      ],
-      benefits: [
-        "Instant claims disbursement via push-to-card or RTP for eligible claims",
-        "Automated approval workflows with configurable rules and thresholds",
-        "Eliminate 80% of check payments with digital delivery options",
-        "State-by-state compliance rules engine for prompt payment regulations",
-        "ML-powered fraud scoring for every disbursement before release",
-        "Real-time payment tracking for adjusters, agents, and policyholders"
-      ],
-      caseStudy: {
-        company: "ShieldCover Insurance",
-        industry: "Property & casualty insurance",
-        quote: "Playto Pay transformed our claims experience. Policyholders now receive funds in minutes instead of weeks, and our NPS increased by 35 points.",
-        author: "Robert Jansen, SVP Claims Operations",
-        metrics: [
-          { value: "< 5min", label: "Claims payment time" },
-          { value: "35pts", label: "NPS improvement" },
-          { value: "80%", label: "Fewer check payments" },
-          { value: "$8.50", label: "Saved per claim" }
-        ]
-      },
-      integrations: ["Guidewire", "Duck Creek", "Majesco", "Custom claims systems", "Salesforce"],
-      keyFeatures: [
-        { title: "Instant Claims Pay", desc: "Disburse approved claims in under 5 minutes via push-to-debit, RTP, or same-day ACH" },
-        { title: "Approval Workflows", desc: "Configurable multi-level approval chains with automated routing based on amount and claim type" },
-        { title: "Policyholder Portal", desc: "Self-service portal where policyholders track claim status, choose payment method, and confirm receipt" }
-      ]
-    },
-    {
-      id: "enterprise",
-      title: "Enterprise & B2B",
-      icon: "🏢",
-      tagline: "Modernize business payments",
-      description: "Replace legacy AP systems with modern, API-driven payout infrastructure. Automate vendor payments, employee reimbursements, incentive payouts, and cross-border settlements with full ERP integration.",
-      challenges: [
-        "Legacy AP systems requiring manual data entry and approvals",
-        "Cross-border vendor payments slow and expensive",
-        "No visibility into payment status after initiation",
-        "Disconnected systems for different payment types and regions",
-        "Compliance burden increasing with global vendor bases",
-        "IT resources consumed maintaining payment infrastructure"
-      ],
-      benefits: [
-        "API-first integration with SAP, Oracle, NetSuite, and other ERPs",
-        "Cross-border payments in 190+ countries at competitive FX rates",
-        "Real-time payment tracking with webhook notifications at every step",
-        "Single platform for vendor payments, reimbursements, and incentives",
-        "Automated compliance with global sanctions and anti-fraud screening",
-        "Zero infrastructure maintenance — fully managed, SOC 2 certified"
-      ],
-      caseStudy: {
-        company: "GlobalTech Solutions",
-        industry: "Enterprise technology",
-        quote: "We consolidated 6 payment vendors into Playto Pay. Our team processes 10x more payments with half the headcount, and vendor payment SLAs improved from 30 days to same-day.",
-        author: "Lisa Park, CFO",
-        metrics: [
-          { value: "6 → 1", label: "Vendor consolidation" },
-          { value: "10x", label: "Processing efficiency" },
-          { value: "Same-day", label: "Payment SLA" },
-          { value: "50%", label: "Cost reduction" }
-        ]
-      },
-      integrations: ["SAP", "Oracle NetSuite", "QuickBooks", "Xero", "Custom ERP"],
-      keyFeatures: [
-        { title: "ERP Integration", desc: "Pre-built connectors for SAP, Oracle, NetSuite, and other ERPs with bi-directional sync" },
-        { title: "Approval Engine", desc: "Multi-level approval workflows with delegation, escalation, and mobile approval capabilities" },
-        { title: "Vendor Management", desc: "Centralized vendor database with onboarding, bank validation, and ongoing compliance monitoring" }
-      ]
+        company: "WorkWave India",
+        metric: "0% late payment rate",
+        quote: "Our freelancers now get paid the same day the client approves the work. The blockchain registry has ended all payment disputes."
+      }
     }
   ];
 
-  const activeSolutionData = solutions.find(s => s.id === activeSolution);
-
-  const views = [
-    { id: "overview", label: "Overview" },
-    { id: "casestudy", label: "Case Study" },
-    { id: "integrations", label: "Integrations" }
-  ];
+  const activeSolutionData = solutions.find((s) => s.id === activeSolution);
 
   return (
-    <div className="solutions-page">
-      <section className="solutions-hero">
-        <div className="solutions-hero-container">
-          <span className="solutions-badge">Solutions</span>
-          <h1 className="solutions-hero-title">
-            Built for your <span className="gradient-text">industry</span>
+    <div className="bg-white min-h-screen">
+      <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+          <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-indigo-600 rounded-full blur-[160px]"></div>
+          <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-purple-600 rounded-full blur-[160px]"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
+          <span className="section-label bg-white/10 text-indigo-300">Industry Solutions</span>
+          <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-tight">
+            Financial Rails for <span className="text-indigo-400">Every Vertical</span>.
           </h1>
-          <p className="solutions-hero-subtitle">
-            Purpose-built payout solutions for every business model. Backed by case studies,
-            proven ROI, and teams who understand your industry inside and out.
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+            We've engineered industry-specific infrastructure to solve the unique trust and compliance challenges of modern digital business.
           </p>
         </div>
       </section>
 
-      <section className="solutions-content">
-        <div className="solutions-content-container">
-          <div className="solutions-tabs">
-            {solutions.map((solution) => (
-              <button
-                key={solution.id}
-                className={`solutions-tab ${activeSolution === solution.id ? "active" : ""}`}
-                onClick={() => { setActiveSolution(solution.id); setActiveView("overview"); }}
-              >
-                <span className="solutions-tab-icon">{solution.icon}</span>
-                <span className="solutions-tab-title">{solution.title}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="solutions-detail">
-            <div className="solutions-detail-header">
-              <span className="solutions-detail-icon">{activeSolutionData.icon}</span>
-              <div>
-                <h2 className="solutions-detail-title">{activeSolutionData.title}</h2>
-                <p className="solutions-detail-tagline">{activeSolutionData.tagline}</p>
-                <p className="solutions-detail-description">{activeSolutionData.description}</p>
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-12">
+            <div className="lg:w-1/3">
+              <div className="sticky top-24 space-y-4">
+                {solutions.map((sol) => (
+                  <button
+                    key={sol.id}
+                    className={`w-full text-left p-8 rounded-3xl transition-all border-2 ${
+                      activeSolution === sol.id
+                        ? "bg-white border-indigo-600 shadow-2xl shadow-indigo-100"
+                        : "bg-slate-50 border-transparent text-slate-500 hover:bg-slate-100"
+                    }`}
+                    onClick={() => setActiveSolution(sol.id)}
+                  >
+                    <div className="flex items-center space-x-6">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl ${
+                        activeSolution === sol.id ? "bg-indigo-600 text-white" : "bg-slate-200"
+                      }`}>
+                        {sol.icon}
+                      </div>
+                      <div>
+                        <h3 className={`font-bold text-xl ${activeSolution === sol.id ? "text-slate-900" : "text-slate-500"}`}>
+                          {sol.title}
+                        </h3>
+                        <p className="text-sm font-medium mt-1">
+                          {sol.tagline}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
 
-            <div className="solutions-view-tabs">
-              {views.map((view) => (
-                <button
-                  key={view.id}
-                  className={`solutions-view-tab ${activeView === view.id ? "active" : ""}`}
-                  onClick={() => setActiveView(view.id)}
-                >
-                  {view.label}
-                </button>
-              ))}
-            </div>
-
-            {activeView === "overview" && (
-              <>
-                <div className="solutions-grid">
-                  <div className="solutions-challenges">
-                    <h3 className="solutions-section-title">Challenges We Solve</h3>
-                    <ul className="solutions-list">
-                      {activeSolutionData.challenges.map((challenge, index) => (
-                        <li key={index} className="solutions-list-item challenge">
-                          <svg className="solutions-list-icon" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                          </svg>
-                          {challenge}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="solutions-benefits">
-                    <h3 className="solutions-section-title">How We Help</h3>
-                    <ul className="solutions-list">
-                      {activeSolutionData.benefits.map((benefit, index) => (
-                        <li key={index} className="solutions-list-item benefit">
-                          <svg className="solutions-list-icon" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            <div className="lg:w-2/3">
+              <div className="glass-card p-10 md:p-12 rounded-[48px] border border-slate-100 animate-fade-in-scale">
+                <div className="mb-12">
+                  <h2 className="text-4xl font-black text-slate-900 mb-6">{activeSolutionData.title}</h2>
+                  <p className="text-xl text-slate-600 leading-relaxed">
+                    {activeSolutionData.description}
+                  </p>
                 </div>
 
-                <div className="solutions-key-features">
-                  <h3 className="solutions-section-title">Key Capabilities</h3>
-                  <div className="solutions-key-features-grid">
-                    {activeSolutionData.keyFeatures.map((feature, index) => (
-                      <div key={index} className="solutions-key-feature-card">
-                        <h4>{feature.title}</h4>
-                        <p>{feature.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
-
-            {activeView === "casestudy" && (
-              <div className="solutions-casestudy">
-                <div className="solutions-casestudy-card">
-                  <div className="solutions-casestudy-header">
-                    <span className="solutions-casestudy-label">Case Study</span>
-                    <h3>{activeSolutionData.caseStudy.company}</h3>
-                    <span className="solutions-casestudy-industry">{activeSolutionData.caseStudy.industry}</span>
-                  </div>
-                  <blockquote className="solutions-casestudy-quote">
-                    "{activeSolutionData.caseStudy.quote}"
-                  </blockquote>
-                  <p className="solutions-casestudy-author">— {activeSolutionData.caseStudy.author}</p>
-                  <div className="solutions-casestudy-metrics">
-                    {activeSolutionData.caseStudy.metrics.map((metric, index) => (
-                      <div key={index} className="solutions-metric">
-                        <span className="solutions-metric-value">{metric.value}</span>
-                        <span className="solutions-metric-label">{metric.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeView === "integrations" && (
-              <div className="solutions-integrations">
-                <h3 className="solutions-section-title">Integrations & Compatibility</h3>
-                <p className="solutions-integrations-desc">
-                  Playto Pay integrates with the tools your team already uses. Pre-built connectors get you live in days, not months.
-                </p>
-                <div className="solutions-integrations-grid">
-                  {activeSolutionData.integrations.map((integration, index) => (
-                    <div key={index} className="solutions-integration-card">
-                      <span className="solutions-integration-name">{integration}</span>
-                      <span className="solutions-integration-status">Available</span>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                  {activeSolutionData.stats.map((stat, index) => (
+                    <div key={index} className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 text-center hover-lift">
+                      <div className="text-3xl font-black text-indigo-600 mb-1">{stat.value}</div>
+                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
 
-            <div className="solutions-actions">
-              <button className="btn btn-primary">Talk to Sales</button>
-              <button className="btn btn-secondary">Read Full Case Study</button>
-              <button className="btn btn-secondary">See All Integrations</button>
+                <div className="flex space-x-8 border-b border-slate-100 mb-12">
+                  {["overview", "benefits", "casestudy"].map((tab) => (
+                    <button
+                      key={tab}
+                      className={`pb-6 px-2 text-sm font-bold transition-all border-b-4 uppercase tracking-widest ${
+                        activeView === tab
+                          ? "border-indigo-600 text-indigo-600"
+                          : "border-transparent text-slate-400 hover:text-slate-600"
+                      }`}
+                      onClick={() => setActiveView(tab)}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+
+                {activeView === "overview" && (
+                  <div className="space-y-10 animate-fade-in-scale">
+                    <div>
+                      <h4 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Core Industry Challenges</h4>
+                      <div className="space-y-4">
+                        {activeSolutionData.challenges.map((challenge, i) => (
+                          <div key={i} className="flex items-start space-x-4">
+                            <span className="w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xs font-bold mt-0.5">✕</span>
+                            <p className="text-slate-600 font-medium">{challenge}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="bg-indigo-600 p-8 rounded-[32px] text-white shadow-xl shadow-indigo-200">
+                      <h4 className="text-lg font-bold mb-4">Why Blockchain Payouts?</h4>
+                      <p className="text-indigo-100 leading-relaxed italic">
+                        "For {activeSolutionData.id}, trust is everything. By mirroring settlements on-chain, we move the source of truth from a private database to a public protocol, eliminating 99% of vendor friction."
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {activeView === "benefits" && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in-scale">
+                    {activeSolutionData.benefits.map((benefit, index) => (
+                      <div key={index} className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 hover:bg-white hover:border-indigo-100 transition-all">
+                        <h4 className="font-bold text-slate-900 mb-3 flex items-center">
+                          <span className="w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                          {benefit.title}
+                        </h4>
+                        <p className="text-sm text-slate-500 leading-relaxed">{benefit.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeView === "casestudy" && (
+                  <div className="animate-fade-in-scale">
+                    <div className="bg-slate-900 p-10 rounded-[40px] text-white relative overflow-hidden">
+                      <div className="absolute top-0 right-0 p-8 opacity-20">
+                        <span className="text-8xl font-black">"</span>
+                      </div>
+                      <div className="relative z-10">
+                        <div className="inline-block px-4 py-1 bg-emerald-500 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-6">
+                          Customer Success
+                        </div>
+                        <h3 className="text-2xl font-bold mb-6 leading-tight">
+                          {activeSolutionData.caseStudy.quote}
+                        </h3>
+                        <div className="flex items-center justify-between border-t border-white/10 pt-8">
+                          <div>
+                            <div className="font-black text-xl text-white">{activeSolutionData.caseStudy.company}</div>
+                            <div className="text-indigo-400 font-bold text-sm uppercase tracking-widest">{activeSolutionData.caseStudy.metric}</div>
+                          </div>
+                          <button className="bg-white text-slate-900 px-6 py-2 rounded-full font-bold text-sm hover:bg-indigo-400 hover:text-white transition-all">
+                            Read Case Study
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-16 pt-10 border-t border-slate-100 flex items-center justify-between">
+                  <p className="text-slate-400 text-sm font-medium">Ready to transform your {activeSolutionData.id} payouts?</p>
+                  <button className="bg-indigo-600 text-white px-10 py-4 rounded-full font-black text-sm shadow-xl shadow-indigo-100 hover-lift">
+                    Schedule Demo →
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="solutions-trust">
-        <div className="solutions-trust-container">
-          <h2 className="solutions-trust-title">Trusted by industry leaders</h2>
-          <div className="solutions-trust-stats">
-            <div className="solutions-trust-stat">
-              <span className="solutions-trust-value">50,000+</span>
-              <span className="solutions-trust-label">Businesses worldwide</span>
-            </div>
-            <div className="solutions-trust-stat">
-              <span className="solutions-trust-value">$42B+</span>
-              <span className="solutions-trust-label">Processed annually</span>
-            </div>
-            <div className="solutions-trust-stat">
-              <span className="solutions-trust-value">190+</span>
-              <span className="solutions-trust-label">Countries supported</span>
-            </div>
-            <div className="solutions-trust-stat">
-              <span className="solutions-trust-value">99.99%</span>
-              <span className="solutions-trust-label">Uptime SLA</span>
-            </div>
+      <section className="py-24 bg-indigo-600 text-white text-center">
+        <div className="max-w-4xl mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight">Deploy your next-gen financial rail today.</h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+            <button className="bg-white text-indigo-600 px-12 py-5 rounded-full font-black text-lg hover-lift">
+              Create Developer Account
+            </button>
+            <button className="bg-transparent border-2 border-white/30 text-white px-12 py-5 rounded-full font-black text-lg hover:bg-white/10 transition-all">
+              Contact Sales
+            </button>
           </div>
+          <p className="mt-10 text-indigo-200 font-medium">
+            Join 50,000+ businesses scaling with Playto Pay.
+          </p>
         </div>
       </section>
     </div>
