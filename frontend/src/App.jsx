@@ -78,7 +78,7 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case "products":
-        return <ProductsPage />;
+        return <ProductsPage onNavigate={setCurrentPage} />;
       case "solutions":
         return <SolutionsPage />;
       case "developers":

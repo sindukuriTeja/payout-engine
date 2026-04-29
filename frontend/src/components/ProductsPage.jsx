@@ -1,6 +1,7 @@
 import { useState } from "react";
+import ResearchGapsSection from "./ResearchGapsSection";
 
-export default function ProductsPage() {
+export default function ProductsPage({ onNavigate }) {
   const [activeProduct, setActiveProduct] = useState("payouts");
   const [activeTab, setActiveTab] = useState("features");
 
@@ -233,6 +234,8 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      <ResearchGapsSection onExplore={() => onNavigate("research")} />
 
       <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
