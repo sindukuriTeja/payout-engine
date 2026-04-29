@@ -123,6 +123,8 @@ export default function App() {
               ledger={ledger}
               onRefresh={refresh}
               lastUpdate={lastUpdate}
+              isLoggedIn={!!user}
+              onNavigateToLogin={() => setCurrentPage("signin")}
             />
           </main>
         );

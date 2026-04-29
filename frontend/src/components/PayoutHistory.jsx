@@ -29,7 +29,36 @@ function StatusBadge({ status }) {
   );
 }
 
-export default function PayoutHistory({ payouts }) {
+export default function PayoutHistory({ payouts, isLoggedIn, onNavigateToLogin }) {
+  const downloadCSV = () => {
+    if (!isLoggedIn) {
+      onNavigateToLogin();
+      return;
+    }
+
+    const headers = ["ID", "Amount (Paise)", "Tax (Paise)", "Bank Account", "Status", "Attempts", "Created"];
+    const rows = payouts.map(p => [
+      p.id,
+      p.amount_paise,
+      p.tax_paise || (p.amount_paise * 0.05),
+      p.bank_account_id,
+      p.status,
+      p.attempts,
+      p.created_at
+    ]);
+
+    const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `payout_history_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="table-card">
       <div className="table-header">
@@ -37,7 +66,15 @@ export default function PayoutHistory({ payouts }) {
           <HistoryIcon size={20} />
           Payout History
         </h3>
-        <span className="table-count">{payouts.length} records</span>
+        <div className="flex items-center space-x-4">
+          <button 
+            onClick={downloadCSV}
+            className="flex items-center space-x-2 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl text-sm font-bold hover:bg-indigo-600 hover:text-white transition-all border border-indigo-100 shadow-sm"
+          >
+            <span>↓ Download CSV</span>
+          </button>
+          <span className="table-count">{payouts.length} records</span>
+        </div>
       </div>
 
       {payouts.length === 0 ? (
