@@ -107,12 +107,8 @@ export default function ProductsPage({ onNavigate }) {
         </div>
       </section>
 
-      <div className="bg-slate-50 py-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-[40px] border border-slate-100 p-2 overflow-hidden shadow-sm">
-             <ResearchGapsSection onExplore={() => onNavigate("research")} />
-          </div>
-        </div>
+      <div className="bg-white">
+        <ResearchGapsSection onExplore={() => onNavigate("research")} />
       </div>
 
       <section className="py-20">
