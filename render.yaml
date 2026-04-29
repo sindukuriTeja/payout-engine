@@ -17,7 +17,6 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: backend/Dockerfile
-    dockerCommand: bash entrypoint.sh
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -34,12 +33,6 @@ services:
         value: "*"
       - key: DJANGO_SECRET_KEY
         generateValue: true
-      - key: CONTRACT_ADDRESS
-        sync: false
-      - key: WEB3_PROVIDER_URL
-        sync: false
-      - key: PRIVATE_KEY
-        sync: false
 
   # 3. Celery Worker
   - type: worker
@@ -58,28 +51,19 @@ services:
           name: payout-redis
           type: redis
           property: connectionString
-      - key: CONTRACT_ADDRESS
-        sync: false
-      - key: WEB3_PROVIDER_URL
-        sync: false
-      - key: PRIVATE_KEY
-        sync: false
 
-  # 4. Frontend (React Static Site)
+  # 4. Frontend (React)
   - type: web
     name: payout-engine-frontend
-    runtime: static
+    env: static
     plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: payout-engine-backend
-          type: web
-          property: hostport
+        value: "https://payout-engine-backend.onrender.com/api/v1"
     routes:
       - type: rewrite
-        source: /*
-        destination: /index.html
+        src: /*
+        dest: /index.html
