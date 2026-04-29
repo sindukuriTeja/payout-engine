@@ -3,27 +3,36 @@ set -e
 
 echo "Waiting for database..."
 python -c "
-import os, time, urllib.parse
+import os, time, urllib.parse, socket
 url = os.environ.get('DATABASE_URL', '')
 if url:
+    if url.startswith('sqlite'):
+        print('Using SQLite, skipping network check.')
+        exit(0)
     parsed = urllib.parse.urlparse(url)
     host, port = parsed.hostname, parsed.port or 5432
 else:
-    host = os.environ.get('POSTGRES_HOST', 'db')
+    host = os.environ.get('POSTGRES_HOST', '')
     port = int(os.environ.get('POSTGRES_PORT', '5432'))
 
-import socket
-for i in range(30):
+if not host:
+    print('No database host configured, skipping network check.')
+    exit(0)
+
+print(f'Checking connection to {host}:{port}...')
+for i in range(1, 31):
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.settimeout(2)
         s.connect((host, port))
         s.close()
+        print('Database is up!')
         break
     except Exception:
-        time.sleep(1)
+        print(f'Database not ready... (attempt {i})')
+        time.sleep(2)
 "
-echo "Database ready."
+echo "Database check complete."
 
 echo "Running migrations..."
 python manage.py migrate --noinput
