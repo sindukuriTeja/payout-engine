@@ -12,6 +12,7 @@ import ProblemSolution from "./components/ProblemSolution";
 import StatsSection from "./components/StatsSection";
 import FeaturesSection from "./components/FeaturesSection";
 import DashboardSection from "./components/DashboardSection";
+import ResearchGapsSection from "./components/ResearchGapsSection";
 import Footer from "./components/Footer";
 import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
@@ -19,6 +20,7 @@ import ProductsPage from "./components/ProductsPage";
 import SolutionsPage from "./components/SolutionsPage";
 import DevelopersPage from "./components/DevelopersPage";
 import ResourcesPage from "./components/ResourcesPage";
+import ResearchGaps from "./components/ResearchGaps";
 import SignInPage from "./components/SignInPage";
 import SignUpPage from "./components/SignUpPage";
 
@@ -83,6 +85,8 @@ export default function App() {
         return <DevelopersPage />;
       case "resources":
         return <ResourcesPage />;
+      case "research":
+        return <ResearchGaps />;
       case "profile":
         return <ProfilePage user={user} />;
       case "signin":
@@ -103,7 +107,8 @@ export default function App() {
       default:
         return (
           <main>
-            <Hero />
+            <Hero onNavigate={setCurrentPage} />
+            <ResearchGapsSection onExplore={() => setCurrentPage("research")} />
             <ProblemSolution />
             <ComparisonSection />
             <StatsSection payouts={payouts} balance={balance} />

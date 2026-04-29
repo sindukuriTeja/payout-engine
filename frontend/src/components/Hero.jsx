@@ -39,7 +39,7 @@ function AnimatedTransaction({ transaction, index }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({ onNavigate }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [countUp, setCountUp] = useState({ payouts: 0, volume: 0, merchants: 0 });
 
@@ -116,10 +116,16 @@ export default function Hero() {
           </div>
 
           <div className="hero-cta">
-            <button className="hero-cta-button hero-btn-primary hover-lift">
+            <button 
+              className="hero-cta-button hero-btn-primary hover-lift"
+              onClick={() => onNavigate("signup")}
+            >
               Start now →
             </button>
-            <button className="hero-cta-button hero-btn-secondary hover-lift">
+            <button 
+              className="hero-cta-button hero-btn-secondary hover-lift"
+              onClick={() => onNavigate("research")}
+            >
               View Research Gaps
             </button>
           </div>
