@@ -117,13 +117,13 @@ export default function Hero({ onNavigate }) {
 
           <div className="hero-cta">
             <button 
-              className="hero-cta-button hero-btn-primary hover-lift"
+              className="hero-btn hero-btn-primary hover-lift"
               onClick={() => onNavigate("signup")}
             >
               Start now →
             </button>
             <button 
-              className="hero-cta-button hero-btn-secondary hover-lift"
+              className="hero-btn hero-btn-secondary hover-lift"
               onClick={() => onNavigate("research")}
             >
               View Research Gaps

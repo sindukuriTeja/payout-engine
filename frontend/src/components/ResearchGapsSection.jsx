@@ -47,12 +47,17 @@ const ResearchGapsSection = ({ onExplore }) => {
                 </div>
               </div>
               <h3 className="text-2xl font-black text-slate-900 mb-4">{gap.title}</h3>
-              <p className="text-slate-500 text-lg leading-relaxed">{gap.desc}</p>
+              <p className="text-slate-500 text-lg leading-relaxed mb-8">{gap.desc}</p>
               
-              <div className="mt-8 pt-8 border-t border-slate-200 flex items-center text-indigo-600 font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>View Solution Architecture</span>
-                <span className="ml-2">→</span>
-              </div>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onExplore();
+                }}
+                className="w-full py-4 bg-white border-2 border-slate-100 rounded-2xl text-indigo-600 font-black group-hover:bg-indigo-600 group-hover:text-white group-hover:border-indigo-600 transition-all duration-300"
+              >
+                View Analysis
+              </button>
             </div>
           ))}
         </div>
