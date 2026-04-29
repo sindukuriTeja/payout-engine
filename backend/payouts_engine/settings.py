@@ -10,9 +10,9 @@ SECRET_KEY = os.environ.get(
     "dev-secret-key-change-in-production",
 )
 
-DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1")
+DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "payout-engine-4.onrender.com,*").split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
