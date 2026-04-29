@@ -59,7 +59,7 @@ export default function DashboardSection({
 
         <PayoutForm merchantId={selectedId} onSuccess={onRefresh} />
         <PayoutHistory payouts={payouts} isLoggedIn={isLoggedIn} onNavigateToLogin={onNavigateToLogin} />
-        <LedgerTable entries={ledger} />
+        <LedgerTable entries={ledger} isLoggedIn={isLoggedIn} onNavigateToLogin={onNavigateToLogin} />
       </div>
     </section>
   );
