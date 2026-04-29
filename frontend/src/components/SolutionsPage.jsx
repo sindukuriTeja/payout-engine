@@ -167,18 +167,18 @@ export default function SolutionsPage() {
                     <button
                       key={tab}
                       className={`pb-6 px-2 text-sm font-bold transition-all border-b-4 uppercase tracking-widest ${
-                        activeView === tab
+                        activeTab === tab
                           ? "border-indigo-600 text-indigo-600"
                           : "border-transparent text-slate-400 hover:text-slate-600"
                       }`}
-                      onClick={() => setActiveView(tab)}
+                      onClick={() => setActiveTab(tab)}
                     >
                       {tab}
                     </button>
                   ))}
                 </div>
 
-                {activeView === "overview" && (
+                {activeTab === "overview" && (
                   <div className="space-y-10 animate-fade-in-scale">
                     <div>
                       <h4 className="text-sm font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Core Industry Challenges</h4>
@@ -200,7 +200,7 @@ export default function SolutionsPage() {
                   </div>
                 )}
 
-                {activeView === "benefits" && (
+                {activeTab === "benefits" && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in-scale">
                     {activeSolutionData.benefits.map((benefit, index) => (
                       <div key={index} className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 hover:bg-white hover:border-indigo-100 transition-all">
@@ -214,7 +214,7 @@ export default function SolutionsPage() {
                   </div>
                 )}
 
-                {activeView === "casestudy" && (
+                {activeTab === "casestudy" && (
                   <div className="animate-fade-in-scale">
                     <div className="bg-slate-900 p-10 rounded-[40px] text-white relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-8 opacity-20">
