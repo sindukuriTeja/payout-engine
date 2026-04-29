@@ -40,26 +40,39 @@
 }
 
 .stat-label {
+  display: block;
+  width: 100%;
   color: var(--gray-500);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.025em;
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  overflow: visible;
+  white-space: nowrap;
 }
 
 .stat-value {
+  display: block;
+  width: 100%;
   color: var(--gray-900);
   font-size: 2.25rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1;
+  margin-bottom: 0.5rem;
 }
 
 .stat-sublabel {
+  display: block;
+  width: 100%;
   color: var(--indigo-600);
   font-size: 0.75rem;
   font-weight: 600;
-  margin-top: 0.25rem;
+}
+
+/* Ensure no clipping in grid items */
+.grid > div {
+  min-width: 0;
 }
 
 .hover-lift {
