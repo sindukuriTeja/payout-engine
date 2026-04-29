@@ -92,34 +92,11 @@ export default function Hero() {
             <span className="hero-title-gradient hero-title-typewriter">payouts</span>
           </h1>
 
-          <p className="hero-subtitle max-w-3xl mx-auto">
+          <p className="hero-subtitle">
             We've fixed the real-world friction of cross-border payments. By combining 
             <strong> immutable blockchain records</strong> with <strong>atomic tax compliance</strong>, 
             we provide a payout engine that is faster, safer, and 100% transparent for businesses and freelancers.
           </p>
-
-          <div className="hero-cta">
-            <button className="hero-cta-button hero-cta-primary hover-lift">
-              Start Sending Payouts
-            </button>
-            <button className="hero-cta-button hero-cta-secondary hover-lift">
-              View Research Gaps
-            </button>
-          </div>
-        </div>
-
-
-          <h1 className="hero-title">
-            Next-gen blockchain infrastructure for{" "}
-            <span className="hero-title-gradient hero-title-typewriter">payouts</span>
-          </h1>
-
-          <p className="hero-subtitle">
-            Secure, immutable, and tax-compliant payout engine. 
-            All transactions are recorded on-chain for total transparency and zero tampering.
-            Automated tax calculation ensures seamless compliance with global standards.
-          </p>
-
 
           <div className="hero-counter-strip">
             <div className="hero-counter">
@@ -138,13 +115,12 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hero-actions">
-            <button className="hero-btn hero-btn-primary">
-              <span className="hero-btn-shine" />
+          <div className="hero-cta">
+            <button className="hero-cta-button hero-btn-primary hover-lift">
               Start now →
             </button>
-            <button className="hero-btn hero-btn-secondary">
-              Contact sales
+            <button className="hero-cta-button hero-btn-secondary hover-lift">
+              View Research Gaps
             </button>
           </div>
         </div>
@@ -207,4 +183,5 @@ export default function Hero() {
       </div>
     </section>
   );
+
 }
