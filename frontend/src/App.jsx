@@ -7,11 +7,14 @@ import {
 } from "./api";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import ComparisonSection from "./components/ComparisonSection";
 import StatsSection from "./components/StatsSection";
 import FeaturesSection from "./components/FeaturesSection";
 import DashboardSection from "./components/DashboardSection";
 import Footer from "./components/Footer";
+import ProfilePage from "./components/ProfilePage";
 import ProductsPage from "./components/ProductsPage";
+
 import SolutionsPage from "./components/SolutionsPage";
 import DevelopersPage from "./components/DevelopersPage";
 import ResourcesPage from "./components/ResourcesPage";
@@ -79,7 +82,10 @@ export default function App() {
         return <DevelopersPage />;
       case "resources":
         return <ResourcesPage />;
+      case "profile":
+        return <ProfilePage />;
       case "signin":
+
         return (
           <SignInPage 
             onSignIn={handleSignIn} 
@@ -97,8 +103,10 @@ export default function App() {
         return (
           <main>
             <Hero />
+            <ComparisonSection />
             <StatsSection payouts={payouts} balance={balance} />
             <FeaturesSection />
+
             
             <DashboardSection
               merchants={merchants}

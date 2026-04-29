@@ -41,17 +41,28 @@ export default function Navbar({ currentPage, setCurrentPage, user, onSignOut })
           >
             Resources
           </button>
+          <button 
+            className={`navbar-link ${currentPage === "profile" ? "active" : ""}`}
+            onClick={() => setCurrentPage("profile")}
+          >
+            Profile
+          </button>
+
         </div>
 
         <div className="navbar-actions">
           {user ? (
             <>
-              <div className="navbar-user">
+              <button 
+                className="navbar-user"
+                onClick={() => setCurrentPage("profile")}
+              >
                 <div className="navbar-user-avatar">
                   {user.name.charAt(0).toUpperCase()}
                 </div>
                 <span className="navbar-user-name">{user.name}</span>
-              </div>
+              </button>
+
               <button className="navbar-btn navbar-btn-secondary" onClick={onSignOut}>
                 Sign out
               </button>

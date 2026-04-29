@@ -140,9 +140,11 @@ def create_payout(merchant_id, amount_paise, bank_account_id, idempotency_key):
             }
 
         # ---- 5. Create payout + debit entry ----
+        tax_paise = int(amount_paise * 0.05)  # 5% tax
         payout = Payout.objects.create(
             merchant=merchant,
             amount_paise=amount_paise,
+            tax_paise=tax_paise,
             bank_account_id=bank_account_id,
             status=Payout.Status.PENDING,
         )
@@ -150,20 +152,35 @@ def create_payout(merchant_id, amount_paise, bank_account_id, idempotency_key):
         LedgerEntry.objects.create(
             merchant=merchant,
             entry_type=LedgerEntry.EntryType.DEBIT,
-            amount_paise=amount_paise,
+            amount_paise=amount_paise + tax_paise,
             payout=payout,
-            description=f"Payout hold #{str(payout.id)[:8]}",
+            description=f"Payout hold (incl tax) #{str(payout.id)[:8]}",
         )
 
-        # ---- 6. Build and cache response ----
+        # ---- 6. Record on Blockchain (Async or on_commit) ----
+        from .blockchain_service import blockchain_service
+        
+        transaction.on_commit(
+            lambda: blockchain_service.record_payout_on_chain(
+                sender_addr=str(merchant.id),
+                receiver_addr=bank_account_id,
+                amount=amount_paise,
+                tax=tax_paise
+            )
+        )
+
+        # ---- 7. Build and cache response ----
+
         response = {
             "id": str(payout.id),
             "merchant_id": str(merchant.id),
             "amount_paise": payout.amount_paise,
+            "tax_paise": payout.tax_paise,
             "bank_account_id": payout.bank_account_id,
             "status": payout.status,
             "created_at": payout.created_at.isoformat(),
         }
+
 
         IdempotencyKey.objects.create(
             key=idempotency_key,
@@ -216,10 +233,11 @@ def settle_payout(payout_id, settlement_result):
             LedgerEntry.objects.create(
                 merchant_id=payout.merchant_id,
                 entry_type=LedgerEntry.EntryType.CREDIT,
-                amount_paise=payout.amount_paise,
+                amount_paise=payout.amount_paise + payout.tax_paise,
                 payout=payout,
-                description=f"Payout failed — funds returned #{str(payout.id)[:8]}",
+                description=f"Payout failed — funds returned (incl tax) #{str(payout.id)[:8]}",
             )
+
 
 
 def fail_payout_max_retries(payout_id):
@@ -241,7 +259,8 @@ def fail_payout_max_retries(payout_id):
         LedgerEntry.objects.create(
             merchant_id=payout.merchant_id,
             entry_type=LedgerEntry.EntryType.CREDIT,
-            amount_paise=payout.amount_paise,
+            amount_paise=payout.amount_paise + payout.tax_paise,
             payout=payout,
-            description=f"Payout failed (max retries) #{str(payout.id)[:8]}",
+            description=f"Payout failed (max retries, incl tax) #{str(payout.id)[:8]}",
         )
+

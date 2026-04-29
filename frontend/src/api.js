@@ -24,6 +24,17 @@ export async function fetchPayouts(merchantId) {
   return res.json();
 }
 
+export async function fetchProfile() {
+  // Mock profile data
+  return {
+    name: "Teja Sindukuri",
+    email: "teja@example.com",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Teja",
+    bio: "Blockchain developer and Payout Engine creator.",
+    wallet: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+  };
+}
+
 export async function createPayout(merchantId, amountPaise, bankAccountId) {
   const idempotencyKey = crypto.randomUUID();
   const res = await fetch(`${API_BASE}/payouts/`, {
@@ -42,3 +53,4 @@ export async function createPayout(merchantId, amountPaise, bankAccountId) {
   const data = await res.json();
   return { status: res.status, data };
 }
+

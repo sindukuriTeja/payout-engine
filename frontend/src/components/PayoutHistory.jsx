@@ -54,11 +54,13 @@ export default function PayoutHistory({ payouts }) {
               <tr>
                 <th>ID</th>
                 <th>Amount</th>
+                <th>Tax</th>
                 <th>Bank Account</th>
                 <th>Status</th>
                 <th>Attempts</th>
                 <th>Created</th>
               </tr>
+
             </thead>
             <tbody>
               {payouts.map((p) => (
@@ -73,7 +75,11 @@ export default function PayoutHistory({ payouts }) {
                   <td style={{ fontWeight: 600, color: "var(--text-primary)" }}>
                     {formatINR(p.amount_paise)}
                   </td>
+                  <td style={{ color: "var(--status-failed-text)" }}>
+                    {formatINR(p.tax_paise || (p.amount_paise * 0.05))}
+                  </td>
                   <td>{p.bank_account_id}</td>
+
                   <td>
                     <StatusBadge status={p.status} />
                   </td>

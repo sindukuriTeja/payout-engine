@@ -20,7 +20,8 @@ export default function ArchitectureView() {
             <ShieldIcon size={20} /> Technology Stack
           </h3>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-            {["Django 5.1", "Django REST Framework", "PostgreSQL 16", "Celery 5.4", "Redis 7", "React 18", "Tailwind CSS", "Docker Compose"].map(tech => (
+            {["Django 5.1", "Solidity (Blockchain)", "PostgreSQL 16", "Celery 5.4", "Redis 7", "React 18", "Tailwind CSS", "Web3.py"].map(tech => (
+
               <span key={tech} style={{
                 padding: "6px 14px",
                 borderRadius: "20px",
@@ -57,11 +58,11 @@ export default function ArchitectureView() {
             overflow: "auto",
             fontFamily: "monospace",
           }}>{`
-  ┌─────────────┐     POST /payouts/      ┌────────────────┐
-  │   React UI  │ ──────────────────────▶ │  Django + DRF  │
-  │  (3s poll)  │ ◀────────────────────── │   (API layer)  │
-  └─────────────┘     JSON responses      └───────┬────────┘
-                                                    │
+  ┌─────────────┐     POST /payouts/      ┌────────────────┐      ┌───────────────┐
+  │   React UI  │ ──────────────────────▶ │  Django + DRF  │ ────▶│  Smart        │
+  │  (3s poll)  │ ◀────────────────────── │   (API layer)  │      │  Contract     │
+  └─────────────┘     JSON responses      └───────┬────────┘      └───────────────┘
+                                                    │              (Blockchain)
                                      services.py    │  SELECT FOR UPDATE
                                      (critical      │  + transaction.atomic
                                       path)         │
@@ -77,6 +78,7 @@ export default function ArchitectureView() {
     Simulated bank
     (70/20/10 split)
 `}</pre>
+
         </div>
       </div>
 
@@ -146,9 +148,16 @@ export default function ArchitectureView() {
             desc: "Simulated bank has 10% hang rate. Celery Beat sweeps every 10s for stuck payouts. Backoff: 30s → 60s → 120s. After 3 attempts, payout fails permanently.",
             color: "var(--yellow-500)",
           },
-          {
-            icon: FileTextIcon,
-            title: "Append-Only Ledger",
+            {
+              icon: ShieldIcon,
+              title: "On-Chain Immutability",
+              desc: "Payout records are mirrored to a Solidity smart contract on-commit. This creates a tamper-proof audit trail that cannot be modified even if the database is compromised.",
+              color: "var(--indigo-500)",
+            },
+            {
+              icon: FileTextIcon,
+              title: "Append-Only Ledger",
+
             desc: "Ledger entries are never updated or deleted. Payout creation → DEBIT. Payout failure → CREDIT return. Balance is always derivable from the ledger.",
             color: "var(--green-500)",
           },

@@ -42,7 +42,9 @@ class Payout(models.Model):
         Merchant, on_delete=models.CASCADE, related_name="payouts"
     )
     amount_paise = models.BigIntegerField()
+    tax_paise = models.BigIntegerField(default=0)
     bank_account_id = models.CharField(max_length=64)
+
     status = models.CharField(
         max_length=16,
         choices=Status.choices,

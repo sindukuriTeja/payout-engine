@@ -9,9 +9,10 @@ export default function Footer() {
               <span className="footer-logo-text">Playto Pay</span>
             </div>
             <p className="footer-tagline">
-              Financial infrastructure for the internet economy. Powering payouts for
-              50,000+ businesses across 190 countries.
+              Blockchain-powered financial infrastructure for the internet economy. 
+              Secure, immutable payouts with automated tax compliance.
             </p>
+
             <div className="footer-social">
               <a href="#" className="footer-social-link" aria-label="Twitter">𝕏</a>
               <a href="#" className="footer-social-link" aria-label="GitHub">GH</a>

@@ -92,15 +92,16 @@ export default function Hero() {
           </div>
 
           <h1 className="hero-title">
-            Financial infrastructure for{" "}
+            Next-gen blockchain infrastructure for{" "}
             <span className="hero-title-gradient hero-title-typewriter">payouts</span>
           </h1>
 
           <p className="hero-subtitle">
-            Real-time balance tracking, instant payouts, and complete audit trail.
-            Built for reliability with enterprise-grade infrastructure. Accept payments,
-            manage balances, and withdraw to Indian bank accounts seamlessly.
+            Secure, immutable, and tax-compliant payout engine. 
+            All transactions are recorded on-chain for total transparency and zero tampering.
+            Automated tax calculation ensures seamless compliance with global standards.
           </p>
+
 
           <div className="hero-counter-strip">
             <div className="hero-counter">
