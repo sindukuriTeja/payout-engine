@@ -84,7 +84,7 @@ export default function App() {
       case "resources":
         return <ResourcesPage />;
       case "profile":
-        return <ProfilePage />;
+        return <ProfilePage user={user} />;
       case "signin":
 
         return (

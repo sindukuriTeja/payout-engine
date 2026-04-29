@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProfile } from '../api';
+import React from 'react';
 
-const ProfilePage = () => {
-  const [profile, setProfile] = useState(null);
-
-  useEffect(() => {
-    fetchProfile().then(setProfile);
-  }, []);
-
-  if (!profile) return <div className="p-8 text-center">Loading profile...</div>;
+const ProfilePage = ({ user }) => {
+  const profile = user || {
+    name: "Demo User",
+    email: "demo@example.com",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Demo",
+    bio: "Exploring the future of blockchain payouts.",
+    wallet: "0x0000000000000000000000000000000000000000"
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-8">
       <div className="bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100 transition-all hover:shadow-indigo-100/50">
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 h-48 relative">
-          <div className="absolute -bottom-16 left-8">
-            <img 
-              src={profile.avatar} 
-              alt={profile.name} 
-              className="w-32 h-32 rounded-full border-4 border-white bg-gray-50 shadow-lg"
-            />
-          </div>
+            <div className="absolute -bottom-16 left-8">
+              <img 
+                src={profile.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.name}`} 
+                alt={profile.name} 
+                className="w-32 h-32 rounded-full border-4 border-white bg-gray-50 shadow-lg"
+              />
+            </div>
         </div>
         <div className="pt-20 pb-8 px-8">
           <div className="flex justify-between items-start">
@@ -37,7 +36,7 @@ const ProfilePage = () => {
             <div>
               <h2 className="text-lg font-bold text-gray-800 mb-4">About</h2>
               <p className="text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
-                {profile.bio}
+                {profile.bio || "No bio provided yet."}
               </p>
             </div>
             <div>
