@@ -107,6 +107,14 @@ export default function ProductsPage({ onNavigate }) {
         </div>
       </section>
 
+      <div className="bg-slate-50 py-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="bg-white rounded-[40px] border border-slate-100 p-2 overflow-hidden shadow-sm">
+             <ResearchGapsSection onExplore={() => onNavigate("research")} />
+          </div>
+        </div>
+      </div>
+
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-12">
@@ -234,8 +242,6 @@ export default function ProductsPage({ onNavigate }) {
           </div>
         </div>
       </section>
-
-      <ResearchGapsSection onExplore={() => onNavigate("research")} />
 
       <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
