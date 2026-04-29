@@ -103,6 +103,7 @@ export default function App() {
           <SignInPage 
             onSignIn={handleSignIn} 
             onSwitchToSignUp={() => setCurrentPage("signup")}
+            onBack={() => setCurrentPage("home")}
           />
         );
       case "signup":
@@ -110,6 +111,7 @@ export default function App() {
           <SignUpPage 
             onSignUp={handleSignUp} 
             onSwitchToSignIn={() => setCurrentPage("signin")}
+            onBack={() => setCurrentPage("home")}
           />
         );
       default:

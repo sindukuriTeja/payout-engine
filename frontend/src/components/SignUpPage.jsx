@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function SignUpPage({ onSignUp, onSwitchToSignIn }) {
+export default function SignUpPage({ onSignUp, onSwitchToSignIn, onBack }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -53,7 +53,15 @@ export default function SignUpPage({ onSignUp, onSwitchToSignIn }) {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 md:p-8">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 md:p-8 relative">
+      <button 
+        onClick={onBack}
+        className="absolute top-8 left-8 flex items-center space-x-2 text-slate-400 hover:text-slate-900 transition-all font-bold group z-50"
+      >
+        <span className="group-hover:-translate-x-1 transition-transform">←</span>
+        <span>Back to Home</span>
+      </button>
+
       <div className="max-w-6xl w-full bg-white rounded-[48px] shadow-2xl overflow-hidden flex flex-col md:flex-row-reverse border border-slate-100 animate-fade-in-scale">
         
         {/* Right Side: Marketing Content */}

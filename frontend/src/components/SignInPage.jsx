@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function SignInPage({ onSignIn, onSwitchToSignUp }) {
+export default function SignInPage({ onSignIn, onSwitchToSignUp, onBack }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -24,7 +24,15 @@ export default function SignInPage({ onSignIn, onSwitchToSignUp }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 md:p-8">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 md:p-8 relative">
+      <button 
+        onClick={onBack}
+        className="absolute top-8 left-8 flex items-center space-x-2 text-slate-400 hover:text-slate-900 transition-all font-bold group z-50"
+      >
+        <span className="group-hover:-translate-x-1 transition-transform">←</span>
+        <span>Back to Home</span>
+      </button>
+
       <div className="max-w-6xl w-full bg-white rounded-[48px] shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100 animate-fade-in-scale">
         
         {/* Left Side: Illustration & Marketing */}
