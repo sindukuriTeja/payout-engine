@@ -11,9 +11,9 @@ services:
     plan: free
     ipAllowList: []
 
-  # 2. Backend (Django API)
+  # 2. Backend + Frontend (single service)
   - type: web
-    name: payout-engine-backend
+    name: payout-engine
     runtime: docker
     plan: free
     dockerfilePath: backend/Dockerfile
@@ -51,19 +51,3 @@ services:
           name: payout-redis
           type: redis
           property: connectionString
-
-  # 4. Frontend (React)
-  - type: web
-    name: payout-engine-frontend
-    env: static
-    plan: free
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    envVars:
-      - key: VITE_API_URL
-        value: "https://payout-engine-backend.onrender.com/api/v1"
-    routes:
-      - type: rewrite
-        src: /*
-        dest: /index.html

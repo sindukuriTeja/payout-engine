@@ -40,10 +40,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "payouts_engine.urls"
 
+FRONTEND_DIR = BASE_DIR / "staticfiles" / "frontend"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [FRONTEND_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -107,5 +109,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+WHITENOISE_ROOT = FRONTEND_DIR
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
