@@ -29,15 +29,15 @@ const ComparisonSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-white overflow-hidden glow-container">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">The Future of Payouts</h2>
-          <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
-            Why Choose Payout Engine?
-          </p>
+          <span className="section-label">Real-World Benchmarks</span>
+          <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl tracking-tight">
+            How we solve the <span className="text-indigo-600">Legacy Friction</span>.
+          </h2>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-            We've built a platform that outperforms traditional banking systems by leveraging blockchain technology.
+            Traditional systems are designed for the physical world. We've optimized every layer for the digital economy.
           </p>
         </div>
 

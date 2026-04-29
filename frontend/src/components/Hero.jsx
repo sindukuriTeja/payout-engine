@@ -86,10 +86,28 @@ export default function Hero() {
 
       <div className="hero-container hero-split">
         <div className="hero-content">
-          <div className="hero-badge">
-            <span className="hero-badge-dot" />
-            <span>Live System</span>
+          <span className="section-label">Infrastructure for the Future</span>
+          <h1 className="hero-title hero-title-main">
+            Solving the world's most complex{" "}
+            <span className="hero-title-gradient hero-title-typewriter">payouts</span>
+          </h1>
+
+          <p className="hero-subtitle max-w-3xl mx-auto">
+            We've fixed the real-world friction of cross-border payments. By combining 
+            <strong> immutable blockchain records</strong> with <strong>atomic tax compliance</strong>, 
+            we provide a payout engine that is faster, safer, and 100% transparent for businesses and freelancers.
+          </p>
+
+          <div className="hero-cta">
+            <button className="hero-cta-button hero-cta-primary hover-lift">
+              Start Sending Payouts
+            </button>
+            <button className="hero-cta-button hero-cta-secondary hover-lift">
+              View Research Gaps
+            </button>
           </div>
+        </div>
+
 
           <h1 className="hero-title">
             Next-gen blockchain infrastructure for{" "}

@@ -8,6 +8,7 @@ import {
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ComparisonSection from "./components/ComparisonSection";
+import ProblemSolution from "./components/ProblemSolution";
 import StatsSection from "./components/StatsSection";
 import FeaturesSection from "./components/FeaturesSection";
 import DashboardSection from "./components/DashboardSection";
@@ -103,6 +104,7 @@ export default function App() {
         return (
           <main>
             <Hero />
+            <ProblemSolution />
             <ComparisonSection />
             <StatsSection payouts={payouts} balance={balance} />
             <FeaturesSection />
