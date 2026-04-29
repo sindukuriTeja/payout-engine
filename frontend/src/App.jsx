@@ -88,7 +88,15 @@ export default function App() {
       case "research":
         return <ResearchGaps />;
       case "profile":
-        return <ProfilePage user={user} />;
+        return (
+          <ProfilePage 
+            user={user} 
+            payouts={payouts} 
+            ledger={ledger}
+            isLoggedIn={!!user}
+            onNavigateToLogin={() => setCurrentPage("signin")}
+          />
+        );
       case "signin":
 
         return (
