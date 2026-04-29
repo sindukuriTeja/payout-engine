@@ -1,0 +1,68 @@
+services:
+  # 1. Database
+  - type: database
+    name: payout-db
+    databaseName: payouts_db
+    user: postgres
+    plan: free
+
+  # 2. Redis for Celery
+  - type: redis
+    name: payout-redis
+    plan: free
+    ipAllowList: [] # Only allow internal access
+
+  # 3. Backend (Django)
+  - type: web
+    name: payout-engine-backend
+    env: docker
+    plan: free
+    rootDir: backend
+    envVars:
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: payout-db
+          property: database
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: payout-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: payout-db
+          property: password
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: payout-db
+          property: host
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: payout-db
+          property: port
+      - key: REDIS_URL
+        fromRedis:
+          name: payout-redis
+          property: connectionString
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "*"
+
+  # 4. Frontend (React)
+  - type: web
+    name: payout-engine-frontend
+    env: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: payout-engine-backend
+          type: web
+          property: host
+    routes:
+      - type: rewrite
+        src: /*
+        dest: /index.html
