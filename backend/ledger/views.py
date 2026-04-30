@@ -1,5 +1,7 @@
+import logging
 import uuid
 
+from django.db import connection
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,12 +15,34 @@ from .serializers import (
 )
 from .services import InsufficientFundsError, create_payout, get_merchant_balance
 
+logger = logging.getLogger(__name__)
+
+
+class HealthCheckView(APIView):
+    def get(self, request):
+        try:
+            connection.ensure_connection()
+            return Response({"status": "healthy", "database": "connected"})
+        except Exception as e:
+            logger.error("Health check failed: %s", e)
+            return Response(
+                {"status": "unhealthy", "database": str(e)},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
 
 class MerchantListView(APIView):
     def get(self, request):
-        merchants = Merchant.objects.all().order_by("name")
-        serializer = MerchantSerializer(merchants, many=True)
-        return Response(serializer.data)
+        try:
+            merchants = Merchant.objects.all().order_by("name")
+            serializer = MerchantSerializer(merchants, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            logger.error("Failed to fetch merchants: %s", e)
+            return Response(
+                {"error": "Database unavailable. Please try again later."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
 
 
 class MerchantBalanceView(APIView):
@@ -29,6 +53,12 @@ class MerchantBalanceView(APIView):
             return Response(
                 {"error": "Merchant not found"}, status=status.HTTP_404_NOT_FOUND
             )
+        except Exception as e:
+            logger.error("Failed to fetch merchant %s: %s", merchant_id, e)
+            return Response(
+                {"error": "Database unavailable. Please try again later."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
 
         balance = get_merchant_balance(merchant_id)
         balance["merchant_id"] = str(merchant_id)
@@ -37,18 +67,32 @@ class MerchantBalanceView(APIView):
 
 class MerchantLedgerView(APIView):
     def get(self, request, merchant_id):
-        entries = LedgerEntry.objects.filter(merchant_id=merchant_id).select_related(
-            "payout"
-        )[:50]
-        serializer = LedgerEntrySerializer(entries, many=True)
-        return Response(serializer.data)
+        try:
+            entries = LedgerEntry.objects.filter(merchant_id=merchant_id).select_related(
+                "payout"
+            )[:50]
+            serializer = LedgerEntrySerializer(entries, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            logger.error("Failed to fetch ledger for %s: %s", merchant_id, e)
+            return Response(
+                {"error": "Database unavailable. Please try again later."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
 
 
 class MerchantPayoutsView(APIView):
     def get(self, request, merchant_id):
-        payouts = Payout.objects.filter(merchant_id=merchant_id)[:50]
-        serializer = PayoutSerializer(payouts, many=True)
-        return Response(serializer.data)
+        try:
+            payouts = Payout.objects.filter(merchant_id=merchant_id)[:50]
+            serializer = PayoutSerializer(payouts, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            logger.error("Failed to fetch payouts for %s: %s", merchant_id, e)
+            return Response(
+                {"error": "Database unavailable. Please try again later."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
 
 
 class CreatePayoutView(APIView):
