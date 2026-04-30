@@ -17,6 +17,13 @@ venv/
 db.sqlite3
 *.db
 
+# Celery
+celerybeat-schedule
+celerybeat-schedule.db
+
+# Static files (collected)
+staticfiles/
+
 # Logs
 *.log
 

@@ -20,24 +20,18 @@ COPY backend/requirements.txt ./
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
+# Copy the backend code first
+COPY backend/ ./
+
 # Build the frontend
 COPY frontend/ /frontend/
 WORKDIR /frontend
 RUN npm install && npm run build
 WORKDIR /app
 
-# Copy built frontend into Django's static serving path
-RUN mkdir -p staticfiles/frontend
-RUN cp -r /frontend/dist/* staticfiles/frontend/
-
-# Copy the backend code
-COPY backend/ ./
-
-# Create static directory
-RUN mkdir -p staticfiles
-
-# Copy frontend build into the final staticfiles location
-RUN cp -r /frontend/dist/* staticfiles/frontend/ 2>/dev/null || true
+# Copy built frontend into Django's staticfiles/frontend directory
+RUN mkdir -p staticfiles/frontend && \
+    cp -r /frontend/dist/* staticfiles/frontend/
 
 # Ensure entrypoint is executable
 RUN chmod +x entrypoint.sh

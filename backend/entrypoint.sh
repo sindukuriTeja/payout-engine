@@ -40,6 +40,10 @@ python manage.py migrate --noinput
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
+# Re-copy frontend build AFTER collectstatic so it doesn't get clobbered
+echo "Copying frontend build..."
+cp -r /frontend/dist/* staticfiles/frontend/
+
 echo "Seeding data..."
 python manage.py seed_data || true
 

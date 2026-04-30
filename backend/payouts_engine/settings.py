@@ -14,6 +14,10 @@ DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1")
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "payout-engine-4.onrender.com,*").split(",")
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://payout-engine-4.onrender.com",
+]
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -69,12 +73,13 @@ DATABASES = {
 
 
 # Celery
-CELERY_BROKER_URL = os.environ.get("REDIS_URL", "redis://redis:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL", "redis://redis:6379/0")
+CELERY_BROKER_URL = os.environ.get("REDIS_URL", "")
+CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL", "")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
+CELERY_TASK_ALWAYS_EAGER = not bool(os.environ.get("REDIS_URL", ""))
 
 CELERY_BEAT_SCHEDULE = {
     "check-stuck-payouts": {
@@ -108,7 +113,12 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 WHITENOISE_ROOT = FRONTEND_DIR
 
