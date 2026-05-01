@@ -16,7 +16,8 @@ services:
     name: payout-engine
     runtime: docker
     plan: free
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -39,7 +40,8 @@ services:
     name: payout-engine-celery-worker
     runtime: docker
     plan: free
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
     dockerCommand: celery -A payouts_engine worker -l info --concurrency=2
     envVars:
       - key: DATABASE_URL
@@ -57,7 +59,8 @@ services:
     name: payout-engine-celery-beat
     runtime: docker
     plan: free
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
     dockerCommand: celery -A payouts_engine beat -l info
     envVars:
       - key: DATABASE_URL
