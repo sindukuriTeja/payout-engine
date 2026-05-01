@@ -16,6 +16,7 @@ class PayoutSerializer(serializers.ModelSerializer):
             "id",
             "merchant_id",
             "amount_paise",
+            "tax_paise",
             "bank_account_id",
             "status",
             "attempts",

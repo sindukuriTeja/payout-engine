@@ -1,20 +1,24 @@
 from django.contrib import admin
-from django.urls import include, path, re_path
-from django.conf import settings
-from django.http import HttpResponse
-from pathlib import Path
+from django.urls import include, path
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-def serve_frontend(request):
-    frontend_dir = Path(settings.FRONTEND_DIR)
-    index_file = frontend_dir / "index.html"
-    if index_file.exists():
-        return HttpResponse(index_file.read_text(), content_type="text/html")
-    return HttpResponse("Frontend not built", status=500)
+class RootView(APIView):
+    def get(self, request):
+        return Response({
+            "service": "Payout Engine API",
+            "version": "1.0.0",
+            "endpoints": {
+                "health": "/api/v1/health/",
+                "merchants": "/api/v1/merchants/",
+                "payouts": "/api/v1/payouts/",
+            }
+        })
 
 
 urlpatterns = [
+    path("", RootView.as_view(), name="root"),
     path("admin/", admin.site.urls),
     path("api/v1/", include("ledger.urls")),
-    re_path(r"^(?!api/|admin/|static/|assets/).*$", serve_frontend),
 ]

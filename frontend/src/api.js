@@ -1,27 +1,31 @@
 const API_BASE = import.meta.env.VITE_API_URL || "/api/v1";
 
-export async function fetchMerchants() {
-  const res = await fetch(`${API_BASE}/merchants/`);
-  if (!res.ok) throw new Error("Failed to fetch merchants");
+async function apiRequest(path, options = {}) {
+  const res = await fetch(`${API_BASE}${path}`, options);
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    const error = new Error(errorData.error || `Request failed: ${res.status}`);
+    error.status = res.status;
+    error.data = errorData;
+    throw error;
+  }
   return res.json();
+}
+
+export async function fetchMerchants() {
+  return apiRequest("/merchants/");
 }
 
 export async function fetchBalance(merchantId) {
-  const res = await fetch(`${API_BASE}/merchants/${merchantId}/balance/`);
-  if (!res.ok) throw new Error("Failed to fetch balance");
-  return res.json();
+  return apiRequest(`/merchants/${merchantId}/balance/`);
 }
 
 export async function fetchLedger(merchantId) {
-  const res = await fetch(`${API_BASE}/merchants/${merchantId}/ledger/`);
-  if (!res.ok) throw new Error("Failed to fetch ledger");
-  return res.json();
+  return apiRequest(`/merchants/${merchantId}/ledger/`);
 }
 
 export async function fetchPayouts(merchantId) {
-  const res = await fetch(`${API_BASE}/merchants/${merchantId}/payouts/`);
-  if (!res.ok) throw new Error("Failed to fetch payouts");
-  return res.json();
+  return apiRequest(`/merchants/${merchantId}/payouts/`);
 }
 
 export async function fetchProfile() {
@@ -30,7 +34,7 @@ export async function fetchProfile() {
     email: "teja@example.com",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Teja",
     bio: "Blockchain developer and Payout Engine creator.",
-    wallet: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F"
+    wallet: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
   };
 }
 

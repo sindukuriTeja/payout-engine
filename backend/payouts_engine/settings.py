@@ -12,10 +12,21 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "payout-engine-4.onrender.com,*").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:5173")
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://payout-engine-4.onrender.com",
+    origin.strip()
+    for origin in os.environ.get(
+        "CSRF_TRUSTED_ORIGINS",
+        f"{FRONTEND_URL},https://*.onrender.com"
+    ).split(",")
+    if origin.strip()
 ]
 
 INSTALLED_APPS = [
@@ -44,12 +55,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "payouts_engine.urls"
 
-FRONTEND_DIR = BASE_DIR / "staticfiles" / "frontend"
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [FRONTEND_DIR],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -98,12 +107,22 @@ REST_FRAMEWORK = {
     ],
 }
 
-# CORS — allow frontend dev server
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS — allow frontend
+CORS_ALLOWED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        "CORS_ALLOWED_ORIGINS",
+        f"{FRONTEND_URL},http://localhost:5173,http://localhost:3000"
+    ).split(",")
+    if origin.strip()
+]
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     "accept",
     "content-type",
     "idempotency-key",
+    "authorization",
 ]
 
 LANGUAGE_CODE = "en-us"
@@ -119,7 +138,5 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
-
-WHITENOISE_ROOT = FRONTEND_DIR
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -5,19 +5,18 @@ databases:
     plan: free
 
 services:
-  # 1. Redis for Celery
   - type: redis
     name: payout-redis
     plan: free
     ipAllowList: []
 
-  # 2. Backend + Frontend (single service)
   - type: web
-    name: payout-engine
+    name: payout-engine-api
     runtime: docker
     plan: free
     dockerfilePath: ./backend/Dockerfile
-    dockerContext: .
+    dockerContext: ./backend
+    healthCheckPath: /api/v1/health/
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -34,14 +33,17 @@ services:
         value: "*"
       - key: DJANGO_SECRET_KEY
         generateValue: true
+      - key: FRONTEND_URL
+        value: "https://payout-engine.vercel.app"
+      - key: CORS_ALLOWED_ORIGINS
+        value: "https://payout-engine.vercel.app"
 
-  # 3. Celery Worker
   - type: worker
     name: payout-engine-celery-worker
     runtime: docker
     plan: free
     dockerfilePath: ./backend/Dockerfile
-    dockerContext: .
+    dockerContext: ./backend
     dockerCommand: celery -A payouts_engine worker -l info --concurrency=2
     envVars:
       - key: DATABASE_URL
@@ -54,13 +56,12 @@ services:
           type: redis
           property: connectionString
 
-  # 4. Celery Beat (scheduler for stuck-payout retries)
   - type: worker
     name: payout-engine-celery-beat
     runtime: docker
     plan: free
     dockerfilePath: ./backend/Dockerfile
-    dockerContext: .
+    dockerContext: ./backend
     dockerCommand: celery -A payouts_engine beat -l info
     envVars:
       - key: DATABASE_URL
